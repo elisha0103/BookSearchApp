@@ -18,15 +18,15 @@ struct SearchBooksResult: Codable {
 }
 
 struct Book: Codable, Hashable {
-    let key: String
-    let title: String
-    let authorName: [String]?
-    let coverI: Int?
-    let ratingsAverage: Double?
-    let ratingsCount, ratingsCount1, ratingsCount2, ratingsCount3: Int?
-    let ratingsCount4, ratingsCount5: Int?
-    let numberOfPagesMedian: Int?
-    
+    let key: String                                                         // Book Key
+    let title: String                                                       // 책 제목
+    let authorName: [String]?                                               // 작가 배열
+    let coverI: Int?                                                        // 썸네일 이미지 코드
+    let ratingsAverage: Double?                                             // 평점
+    let ratingsCount, ratingsCount1, ratingsCount2, ratingsCount3: Int?     // 총 리뷰 수, 1점 수, 2점 수, 3점 수
+    let ratingsCount4, ratingsCount5: Int?                                  // 4점 수, 5점 수
+    let numberOfPagesMedian: Int?                                           // 책 페이지 수
+                                            
     // MARK: - 옵셔널 변수에 대한 연산 프로퍼티
     var presentAuthors: String {  // 작가 배열을 String으로 반환하는 변수
         guard let authors = self.authorName else { return "작가 미상" }
@@ -37,7 +37,7 @@ struct Book: Codable, Hashable {
         return names
     }
     
-    var presentRatingAverage: String { // 평점 반올림해서 문자열로 반환하는 변수
+    var presentRatingAverage: String { // 평점 소수점 셋째 자리에서 반올림하여 문자열로 반환하는 변수
         let digit: Double = pow(10, 2)
         
         guard let ratingAverage = self.ratingsAverage else { return "" }
@@ -51,7 +51,7 @@ struct Book: Codable, Hashable {
         return String("\(numberOfPagesMedian)페이지")
     }
     
-    var presentRatingCount: [Int] {
+    var presentRatingCount: [Int] { // 리뷰 정보를 반환하는 변수
         var ratingArr: [Int] = Array(repeating: 0, count: 6)
         guard
             let ratingsCount = self.ratingsCount,

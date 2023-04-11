@@ -44,6 +44,11 @@ struct ContentView: View {
                     .frame(height: 15)
                     
                     // MARK: - 도서 검색 결과 View
+                    Text("검색 결과: \(bookSearchViewModel.searchBooksResult.numFound)개")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     ScrollView {
                         let columns = [
                             GridItem(.flexible()),
