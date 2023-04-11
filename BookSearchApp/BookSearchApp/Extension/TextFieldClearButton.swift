@@ -17,11 +17,13 @@ struct TextFieldClearButton: ViewModifier {
             if !fieldText.isEmpty {
                 HStack {
                     Spacer()
-                    Button(action: {
+                    
+                    Button {
                         fieldText = ""
-                    }) {
+                    } label: {
                         Image(systemName: "multiply.circle.fill")
                     }
+
                     .foregroundColor(.secondary)
                     .padding(.trailing, 4)
                 }

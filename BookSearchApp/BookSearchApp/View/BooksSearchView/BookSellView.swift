@@ -9,29 +9,14 @@ import SwiftUI
 
 struct BookCellView: View {
     let bookTitle: String       // 책 제목
-    let authors: [String]?      // 작가
-    let ratingAverage: Double?      // 책 평점
+    let presentAuthors: String  // 작가
+    let presentRatingAverage: String   // 책 평점
     let coverID: Int?       // 책 썸네일 이미지 코드
-    var presentAuthors: String {  // 작가 배열을 String으로 반환하는 변수
-        guard let authors = self.authors else { return "작가 미상" }
-        var names: String = authors[0]
-        for index in 1..<authors.count {
-            names = "\(names), \(authors[index])"
-        }
-        return names
-    }
-    var presentRatingAverage: String { // 평점 반올림해서 문자열로 반환하는 변수
-        let digit: Double = pow(10, 2)
-        
-        guard let ratingAverage = self.ratingAverage else { return "" }
-        
-        return String(format: "%.1f", round(ratingAverage * digit) / digit)
-    }
     
-    init(bookTitle: String, authors: [String]?, ratingAverage: Double?, coverID: Int?) {
+    init(bookTitle: String, presentAuthors: String, presentRatingAverage: String, coverID: Int?) {
         self.bookTitle = bookTitle
-        self.authors = authors
-        self.ratingAverage = ratingAverage
+        self.presentAuthors = presentAuthors
+        self.presentRatingAverage = presentRatingAverage
         self.coverID = coverID
     } // init
     
@@ -57,7 +42,7 @@ struct BookCellView: View {
                     HStack {
                         Text("\(presentRatingAverage)")
                             .font(.caption2)
-                        if ratingAverage != nil {
+                        if !presentRatingAverage.isEmpty {
                             Image(systemName: "star.fill")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
