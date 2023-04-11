@@ -12,6 +12,9 @@
 		669DE1B629E4EBF5007C8819 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 669DE1B529E4EBF5007C8819 /* Assets.xcassets */; };
 		669DE1B929E4EBF5007C8819 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 669DE1B829E4EBF5007C8819 /* Preview Assets.xcassets */; };
 		669DE1C129E4EF02007C8819 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 669DE1C029E4EF02007C8819 /* .swiftlint.yml */; };
+		669DE1C829E50640007C8819 /* BookSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1C729E50640007C8819 /* BookSearchViewModel.swift */; };
+		669DE1CA29E506A7007C8819 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1C929E506A7007C8819 /* Book.swift */; };
+		669DE1CD29E507AB007C8819 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1CC29E507AB007C8819 /* WebService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +24,9 @@
 		669DE1B529E4EBF5007C8819 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		669DE1B829E4EBF5007C8819 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		669DE1C029E4EF02007C8819 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		669DE1C729E50640007C8819 /* BookSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewModel.swift; sourceTree = "<group>"; };
+		669DE1C929E506A7007C8819 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		669DE1CC29E507AB007C8819 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,9 @@
 		669DE1B029E4EBF4007C8819 /* BookSearchApp */ = {
 			isa = PBXGroup;
 			children = (
+				669DE1CB29E5079D007C8819 /* WebService */,
+				669DE1C629E5062E007C8819 /* ViewModel */,
+				669DE1C229E504BB007C8819 /* Model */,
 				669DE1B129E4EBF4007C8819 /* BookSearchAppApp.swift */,
 				669DE1B329E4EBF4007C8819 /* ContentView.swift */,
 				669DE1B529E4EBF5007C8819 /* Assets.xcassets */,
@@ -68,6 +77,30 @@
 				669DE1B829E4EBF5007C8819 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		669DE1C229E504BB007C8819 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				669DE1C929E506A7007C8819 /* Book.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		669DE1C629E5062E007C8819 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				669DE1C729E50640007C8819 /* BookSearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		669DE1CB29E5079D007C8819 /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				669DE1CC29E507AB007C8819 /* WebService.swift */,
+			);
+			path = WebService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +173,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		669DE1BF29E4EE89007C8819 /* SwiftLint Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -165,6 +199,9 @@
 			files = (
 				669DE1B429E4EBF4007C8819 /* ContentView.swift in Sources */,
 				669DE1B229E4EBF4007C8819 /* BookSearchAppApp.swift in Sources */,
+				669DE1CA29E506A7007C8819 /* Book.swift in Sources */,
+				669DE1CD29E507AB007C8819 /* WebService.swift in Sources */,
+				669DE1C829E50640007C8819 /* BookSearchViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +258,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -275,7 +312,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
