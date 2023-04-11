@@ -24,7 +24,7 @@ struct ContentView: View {
                             let text = searchString
                                 .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
                                 .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환
-                            let resultURL: String = "\(searchAPIURL)\(text)&sort=title"
+                            let resultURL: String = "\(searchAPIURL)\(text)"
                             
                             Task {
                                 loadingState.toggle()
