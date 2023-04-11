@@ -17,6 +17,7 @@ struct ContentView: View {
         ZStack {
             NavigationView {
                 VStack {
+                    // MARK: - 도서 검색 View
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
                             
@@ -42,8 +43,8 @@ struct ContentView: View {
                     }
                     .frame(height: 15)
                     
+                    // MARK: - 도서 검색 결과 View
                     ScrollView {
-                        // MARK: - Grid View
                         let columns = [
                             GridItem(.flexible()),
                             GridItem(.flexible())
@@ -51,16 +52,21 @@ struct ContentView: View {
                         
                         LazyVGrid(columns: columns, spacing: 5) {
                             ForEach(bookSearchViewModel.searchBooksResult.books, id: \.self) { book in
-                                BookCellView(
-                                    bookTitle: book.title,
-                                    authors: book.authorName,
-                                    ratingAverage: book.ratingsAverage,
-                                    coverID: book.coverI
-                                )
-                                //                            .overlay(
-                                //                                RoundedRectangle(cornerRadius: 20)
-                                //                                    .stroke(Color.gray, lineWidth: 2)
-                                //                            )
+                                NavigationLink {
+                                    BookDetailView(book: book)
+                                } label: {
+                                    BookCellView(
+                                        bookTitle: book.title,
+                                        presentAuthors: book.presentAuthors,
+                                        presentRatingAverage: book.presentRatingAverage,
+                                        coverID: book.coverI
+                                    )
+                                    //                            .overlay(
+                                    //                                RoundedRectangle(cornerRadius: 20)
+                                    //                                    .stroke(Color.gray, lineWidth: 2)
+                                    //                            )
+                                }
+                                .accentColor(.black)
                             }
                         }
                         .padding(.horizontal, 5)
