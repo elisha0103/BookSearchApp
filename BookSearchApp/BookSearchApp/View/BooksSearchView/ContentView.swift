@@ -24,7 +24,7 @@ struct ContentView: View {
                             let text = searchString
                                 .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
                                 .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환
-                            let resultURL: String = "\(searchAPIURL)\(text)"
+                            let resultURL: String = "\(searchAPIURL)\(text)&sort=title"
                             
                             Task {
                                 loadingState.toggle()
@@ -44,6 +44,11 @@ struct ContentView: View {
                     .frame(height: 15)
                     
                     // MARK: - 도서 검색 결과 View
+                    Text("검색 결과: \(bookSearchViewModel.searchBooksResult.numFound)개")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     ScrollView {
                         let columns = [
                             GridItem(.flexible()),

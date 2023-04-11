@@ -19,27 +19,42 @@ struct BookDetailView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 130)
                 
-                Spacer()
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("\(book.title)")
-                        .font(.title3)
-                        .bold()
-                        .lineLimit(2)
-                    
-                    Text("\(book.presentAuthors)")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                        .lineLimit(2)
-                    
-                    Text("\(book.presentNumberOfPageMedian)")
-                        .font(.footnote)
-                        .foregroundColor(.gray)
-                } // VStack
-                .padding(.horizontal, 10)
-                .frame(maxWidth: .infinity, alignment: .leading)
+//                Spacer()
+//
+//                VStack(alignment: .leading, spacing: 5) {
+//                    Text("\(book.title)")
+//                        .font(.title3)
+//                        .bold()
+//                        .minimumScaleFactor(0.5)
+//                        .lineLimit(5)
+//
+//                    Text("\(book.presentAuthors)")
+//                        .font(.footnote)
+//                        .foregroundColor(.gray)
+//                        .lineLimit(2)
+//
+//                    Text("\(book.presentNumberOfPageMedian)")
+//                        .font(.footnote)
+//                        .foregroundColor(.gray)
+//                } // VStack
+//                .padding(.horizontal, 10)
+//                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.top, 20)
+            
+            VStack(alignment: .leading) {
+                Text("\(book.title)")
+                    .font(.footnote)
+                    .lineLimit(5)
+                Text("\(book.presentAuthors)")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                Text("\(book.presentNumberOfPageMedian)")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 10)
             
             Divider()
             
