@@ -16,7 +16,9 @@ final class BookSearchViewModel: ObservableObject {
 
     func fetchBooksData(url: String) async throws {
         do {
+            print("viewmodel start fetch")
             let result = try await WebService.fetchBooksData(url: url)
+            print("finish fetch")
             DispatchQueue.main.async {
                 self.searchBooksResult = result
             }
