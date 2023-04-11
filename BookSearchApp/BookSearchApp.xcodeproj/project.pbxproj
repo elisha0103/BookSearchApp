@@ -15,6 +15,8 @@
 		669DE1C829E50640007C8819 /* BookSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1C729E50640007C8819 /* BookSearchViewModel.swift */; };
 		669DE1CA29E506A7007C8819 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1C929E506A7007C8819 /* Book.swift */; };
 		669DE1CD29E507AB007C8819 /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1CC29E507AB007C8819 /* WebService.swift */; };
+		669DE1D029E54CC1007C8819 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1CF29E54CC1007C8819 /* ViewExtension.swift */; };
+		669DE1D229E54D94007C8819 /* TextFieldClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669DE1D129E54D94007C8819 /* TextFieldClearButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,9 @@
 		669DE1C729E50640007C8819 /* BookSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewModel.swift; sourceTree = "<group>"; };
 		669DE1C929E506A7007C8819 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 		669DE1CC29E507AB007C8819 /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		669DE1CF29E54CC1007C8819 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		669DE1D129E54D94007C8819 /* TextFieldClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldClearButton.swift; sourceTree = "<group>"; };
+		669DE1D329E5536F007C8819 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +65,8 @@
 		669DE1B029E4EBF4007C8819 /* BookSearchApp */ = {
 			isa = PBXGroup;
 			children = (
+				669DE1D329E5536F007C8819 /* Info.plist */,
+				669DE1CE29E54CA0007C8819 /* Extension */,
 				669DE1CB29E5079D007C8819 /* WebService */,
 				669DE1C629E5062E007C8819 /* ViewModel */,
 				669DE1C229E504BB007C8819 /* Model */,
@@ -101,6 +108,15 @@
 				669DE1CC29E507AB007C8819 /* WebService.swift */,
 			);
 			path = WebService;
+			sourceTree = "<group>";
+		};
+		669DE1CE29E54CA0007C8819 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				669DE1CF29E54CC1007C8819 /* ViewExtension.swift */,
+				669DE1D129E54D94007C8819 /* TextFieldClearButton.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +214,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				669DE1B429E4EBF4007C8819 /* ContentView.swift in Sources */,
+				669DE1D029E54CC1007C8819 /* ViewExtension.swift in Sources */,
 				669DE1B229E4EBF4007C8819 /* BookSearchAppApp.swift in Sources */,
+				669DE1D229E54D94007C8819 /* TextFieldClearButton.swift in Sources */,
 				669DE1CA29E506A7007C8819 /* Book.swift in Sources */,
 				669DE1CD29E507AB007C8819 /* WebService.swift in Sources */,
 				669DE1C829E50640007C8819 /* BookSearchViewModel.swift in Sources */,
@@ -333,6 +351,7 @@
 				DEVELOPMENT_TEAM = RF42434X35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookSearchApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -362,6 +381,7 @@
 				DEVELOPMENT_TEAM = RF42434X35;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookSearchApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

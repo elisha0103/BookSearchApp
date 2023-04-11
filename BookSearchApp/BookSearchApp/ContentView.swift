@@ -9,11 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var bookSearchViewModel: BookSearchViewModel
+    @State var searchString: String = ""
     private let urlString: String = "https://openlibrary.org/search.json?q=the+lord+of+the+rings"
     
     var body: some View {
         NavigationView {
             VStack {
+                HStack {
+                    TextField("도서 검색", text: $searchString)
+                        .disableAutocorrection(true)
+                        .padding(.bottom, 10)
+                        .cornerRadius(10)
+                        .autocapitalization(.none)
+                        .modifier(TextFieldClearButton(fieldText: $searchString))
+                        .onSubmit {
+                            bookSearchViewModel.fetchBooksData(url: )
+                        }
+                    Spacer()
+                }
+                .frame(height: 15)
+                
                 ScrollView {
                     // MARK: - Grid View
                     let columns = [
@@ -29,11 +44,10 @@ struct ContentView: View {
                                 ratingAverage: book.ratingsAverage,
                                 coverID: book.coverI
                             )
-                            .frame(width: 150, height: 300)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.gray, lineWidth: 2)
-                            )
+//                            .overlay(
+//                                RoundedRectangle(cornerRadius: 20)
+//                                    .stroke(Color.gray, lineWidth: 2)
+//                            )
                         }
                     }
                     .padding(.horizontal, 5)
@@ -43,9 +57,9 @@ struct ContentView: View {
             }
             .padding()
             .onAppear {
-                Task {
-                    try await bookSearchViewModel.fetchBooksData(url: urlString)
-                }
+//                Task {
+//                    try await bookSearchViewModel.fetchBooksData(url: urlString)
+//                }
             } // VStack
         } // NavigationView
     } // body
@@ -83,39 +97,50 @@ struct BookCellView: View {
         VStack {
             Image(systemName: "book.closed")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 100, height: 150)
+                .aspectRatio(contentMode: .fill)
+                .frame(width: 100, height: 180)
+                .shadow(radius: 6)
             
-            VStack(alignment: .leading) {
-                Text("\(bookTitle)")
-                    .font(.headline)
-                    .lineLimit(2)
-                Text("\(presentAuthors)")
-                    .font(.subheadline)
-                    .lineLimit(2)
-                HStack {
-                    Text("\(presentRatingAverage)")
+            Spacer()
+            
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("\(bookTitle)")
                         .font(.footnote)
-                    if ratingAverage != nil {
-                        Image(systemName: "star.fill")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 10)
-                    }
-                } // HStack
-            } // VStack
+                        .bold()
+                        .lineLimit(2)
+                    Text("\(presentAuthors)")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .lineLimit(2)
+                    HStack {
+                        Text("\(presentRatingAverage)")
+                            .font(.caption2)
+                        if ratingAverage != nil {
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 10)
+                        }
+                    } // HStack
+                    
+                    Spacer()
+                    
+                } // VStack
+                .frame(maxWidth: .infinity, alignment: .leading)
+
         } // VStack
+        .frame(width: 175, height: 250)
+        
     } // body
 } // BookCellView
 
 // struct BookCellView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        BookCellView(
-//            bookTitle: "BookTitleBookTitleBookTitleBookTitleBookTitleBookTitleBookTitleBookTitleBookTitleBookTitle",
-//            authors: ["author, author, author, author, author, author, author, author, author, author, author"],
+//            bookTitle: "43423",
+//            authors: ["author, "],
 //            ratingAverage: 3.12135,
-//            coverID: 2,
-//            thumbnailImage: Image(systemName: "book.closed")
+//            coverID: 2
 //        )
 //    }
 // }
