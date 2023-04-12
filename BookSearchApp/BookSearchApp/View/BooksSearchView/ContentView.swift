@@ -13,14 +13,14 @@ struct ContentView: View {
     @State private var loadingState: Bool = false // ProgressView 출력용
     
     var body: some View {
-        ZStack {
-            NavigationView {
+        NavigationView {
+            ZStack {
                 VStack {
-
+                    
                     // MARK: - 도서 검색 View
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
-
+                            
                             bookSearchViewModel.resetViewModelData() // 새로 검색하면 ViewModel 검색상태 초기화
                             
                             Task {
@@ -66,7 +66,7 @@ struct ContentView: View {
                                 .accentColor(.black)
                             } // ForEach
                             
-                            // MARK: - PagenationView
+                            // MARK: - Pagenation
                             if !loadingState { // 검색 중에는 페이지네이션 동작 제한
                                 switch bookSearchViewModel.loadingBooksDataState {
                                 case .done:
@@ -86,24 +86,25 @@ struct ContentView: View {
                                         .foregroundColor(.red)
                                 } // switch
                             } // if
-
+                            
                         } // LazyVGrid
                         .padding(.horizontal, 5)
                         .padding(.top, 1)
                         .padding(.bottom, 120)
                         
-                } // ScrollView
+                    } // ScrollView
                 } // VStack
                 .padding()
-            } // NavigationView
-            if loadingState {
-                ProgressView()
+                
+                if loadingState {
+                    ProgressView()
+                }
+
+            } // ZStack
+            .onTapGesture {
+                hideKeyboard()
             }
-            
-        } // ZStack
-        .onTapGesture {
-            hideKeyboard()
-        }
+        } // NavigationView
     } // body
 } // ContentView
 

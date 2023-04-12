@@ -22,7 +22,7 @@
 		66C3FBC229E594200059BE1B /* BookCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3FBC129E594200059BE1B /* BookCellView.swift */; };
 		66C3FBC529E595AF0059BE1B /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3FBC429E595AF0059BE1B /* BookDetailView.swift */; };
 		66C3FBC729E65FD70059BE1B /* CoverImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3FBC629E65FD70059BE1B /* CoverImageView.swift */; };
-		66C3FBC929E697710059BE1B /* NSCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3FBC829E697710059BE1B /* NSCacheManager.swift */; };
+		66C3FBC929E697710059BE1B /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C3FBC829E697710059BE1B /* CacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		66C3FBC129E594200059BE1B /* BookCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCellView.swift; sourceTree = "<group>"; };
 		66C3FBC429E595AF0059BE1B /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		66C3FBC629E65FD70059BE1B /* CoverImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageView.swift; sourceTree = "<group>"; };
-		66C3FBC829E697710059BE1B /* NSCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCacheManager.swift; sourceTree = "<group>"; };
+		66C3FBC829E697710059BE1B /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				669DE1C729E50640007C8819 /* BookSearchViewModel.swift */,
-				66C3FBC829E697710059BE1B /* NSCacheManager.swift */,
+				66C3FBC829E697710059BE1B /* CacheManager.swift */,
 			);
 			path = Architecture;
 			sourceTree = "<group>";
@@ -267,7 +267,7 @@
 				669DE1CD29E507AB007C8819 /* WebService.swift in Sources */,
 				669DE1C829E50640007C8819 /* BookSearchViewModel.swift in Sources */,
 				66C3FBBF29E5602A0059BE1B /* BundleExtension.swift in Sources */,
-				66C3FBC929E697710059BE1B /* NSCacheManager.swift in Sources */,
+				66C3FBC929E697710059BE1B /* CacheManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

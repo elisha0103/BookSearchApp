@@ -42,7 +42,7 @@ final class WebService {
             return nil
         }
         
-        if let cachedImage = NSCacheManager.imageLoadCache(urlString: requestURL) { // 기기 메모리 혹은 디스크로부터 이미지 호출
+        if let cachedImage = CacheManager.imageLoadCache(urlString: requestURL) { // 기기 메모리 혹은 디스크로부터 이미지 호출
             print("이미지 캐시 반환")
             
             return cachedImage
@@ -54,8 +54,8 @@ final class WebService {
             }
             
             // 서버로 로드된 파일을 기기 메모리, disk 영역에 저장
-            NSCacheManager.imageSetDisk(image: image, urlString: requestURL)
-            NSCacheManager.imageSetMemory(image: image, urlString: requestURL)
+            CacheManager.imageSetDisk(image: image, urlString: requestURL)
+            CacheManager.imageSetMemory(image: image, urlString: requestURL)
             
             print("api 서버 이미지 반환")
             return image
