@@ -11,7 +11,6 @@ struct ContentView: View {
     @EnvironmentObject var bookSearchViewModel: BookSearchViewModel
     @State var searchString: String = ""
     @State private var loadingState: Bool = false // ProgressView 출력용
-    private let searchAPIURL: String = Bundle.main.searchAPILink // APILinkList.plist Search_API_Link 값
     
     var body: some View {
         ZStack {
@@ -21,14 +20,14 @@ struct ContentView: View {
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
                             
+                            // TODO: - 수정사항
                             let text = searchString
                                 .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
                                 .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환
-                            let resultURL: String = "\(searchAPIURL)\(text)"
                             
                             Task {
                                 loadingState.toggle()
-                                try await bookSearchViewModel.fetchBooksData(url: resultURL)
+                                try await bookSearchViewModel.fetchBooksData(keywords: text)
                                 print("finish view fetch")
                                 loadingState.toggle()
                             }

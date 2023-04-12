@@ -22,11 +22,12 @@ struct BookCellView: View {
     
     var body: some View {
         VStack {
-            Image(systemName: "book.closed")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 180)
-                .shadow(radius: 6)
+            CoverImageView(coverCode: coverID)
+//            Image(systemName: "book.closed")
+//                .resizable()
+//                .aspectRatio(contentMode: .fill)
+//                .frame(width: 100, height: 180)
+//                .shadow(radius: 6)
             
             Spacer()
             
