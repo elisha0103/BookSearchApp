@@ -14,31 +14,7 @@ struct BookDetailView: View {
         VStack {
             // MARK: - 책 기본 정보
             HStack(alignment: .top) {
-                Image(systemName: "book.closed")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 130)
-                
-//                Spacer()
-//
-//                VStack(alignment: .leading, spacing: 5) {
-//                    Text("\(book.title)")
-//                        .font(.title3)
-//                        .bold()
-//                        .minimumScaleFactor(0.5)
-//                        .lineLimit(5)
-//
-//                    Text("\(book.presentAuthors)")
-//                        .font(.footnote)
-//                        .foregroundColor(.gray)
-//                        .lineLimit(2)
-//
-//                    Text("\(book.presentNumberOfPageMedian)")
-//                        .font(.footnote)
-//                        .foregroundColor(.gray)
-//                } // VStack
-//                .padding(.horizontal, 10)
-//                .frame(maxWidth: .infinity, alignment: .leading)
+                CoverImageView(coverCode: book.coverI)
             }
             .padding(.top, 20)
             

@@ -23,11 +23,6 @@ struct BookCellView: View {
     var body: some View {
         VStack {
             CoverImageView(coverCode: coverID)
-//            Image(systemName: "book.closed")
-//                .resizable()
-//                .aspectRatio(contentMode: .fill)
-//                .frame(width: 100, height: 180)
-//                .shadow(radius: 6)
             
             Spacer()
             
@@ -49,7 +44,6 @@ struct BookCellView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 10)
                         }
-                        Text("\(coverID ?? 0)")
                     } // HStack
                     
                     Spacer()
