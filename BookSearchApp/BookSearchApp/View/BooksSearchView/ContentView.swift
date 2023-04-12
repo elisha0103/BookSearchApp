@@ -20,7 +20,6 @@ struct ContentView: View {
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
                             
-                            // TODO: - 수정사항
                             let text = searchString
                                 .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
                                 .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환

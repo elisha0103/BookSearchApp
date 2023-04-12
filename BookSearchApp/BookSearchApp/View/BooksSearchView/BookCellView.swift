@@ -49,6 +49,7 @@ struct BookCellView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 10)
                         }
+                        Text("\(coverID ?? 0)")
                     } // HStack
                     
                     Spacer()
