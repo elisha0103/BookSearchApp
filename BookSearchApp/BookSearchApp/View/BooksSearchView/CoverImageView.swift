@@ -18,7 +18,7 @@ struct CoverImageView: View {
             if let uIImage = uIImage {
                 Image(uiImage: uIImage)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 100, height: 180)
                     .shadow(radius: 6)
             } else {
