@@ -11,25 +11,21 @@ struct ContentView: View {
     @EnvironmentObject var bookSearchViewModel: BookSearchViewModel
     @State var searchString: String = ""
     @State private var loadingState: Bool = false // ProgressView 출력용
-    private let searchAPIURL: String = Bundle.main.searchAPILink // APILinkList.plist Search_API_Link 값
     
     var body: some View {
         ZStack {
             NavigationView {
                 VStack {
+
                     // MARK: - 도서 검색 View
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
-                            
-                            let text = searchString
-                                .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
-                                .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환
-                            let resultURL: String = "\(searchAPIURL)\(text)"
+
+                            bookSearchViewModel.resetViewModelData() // 새로 검색하면 ViewModel 검색상태 초기화
                             
                             Task {
                                 loadingState.toggle()
-                                try await bookSearchViewModel.fetchBooksData(url: resultURL)
-                                print("finish view fetch")
+                                try await bookSearchViewModel.fetchBooksData(searchString: searchString)
                                 loadingState.toggle()
                             }
                             
@@ -38,7 +34,7 @@ struct ContentView: View {
                         .autocapitalization(.none)  // 자동 대문자 변환 비활성화
                         .padding(.bottom, 10)
                         .cornerRadius(10)
-                        .modifier(TextFieldClearButton(fieldText: $searchString))
+                        .modifier(TextFieldClearButton(fieldText: $searchString)) // Clear 버튼
                         Spacer()
                     }
                     .frame(height: 15)
@@ -66,37 +62,54 @@ struct ContentView: View {
                                         presentRatingAverage: book.presentRatingAverage,
                                         coverID: book.coverI
                                     )
-                                    //                            .overlay(
-                                    //                                RoundedRectangle(cornerRadius: 20)
-                                    //                                    .stroke(Color.gray, lineWidth: 2)
-                                    //                            )
                                 }
                                 .accentColor(.black)
-                            }
-                        }
+                            } // ForEach
+                            
+                            // MARK: - PagenationView
+                            if !loadingState { // 검색 중에는 페이지네이션 동작 제한
+                                switch bookSearchViewModel.loadingBooksDataState {
+                                case .done:
+                                    Color.clear
+                                        .onAppear {
+                                            Task {
+                                                try await bookSearchViewModel.fetchBooksData(searchString: searchString)
+                                            }
+                                        }
+                                case .isLoading:
+                                    ProgressView()
+                                        .progressViewStyle(.circular)
+                                case .loadedAll:
+                                    EmptyView()
+                                case .error(let message):
+                                    Text("리스트 업데이트 오류\n\(message)")
+                                        .foregroundColor(.red)
+                                } // switch
+                            } // if
+
+                        } // LazyVGrid
                         .padding(.horizontal, 5)
                         .padding(.top, 1)
                         .padding(.bottom, 120)
-                    }
-                }
-                .padding()
-                .onAppear {
-                    //                Task {
-                    //                    try await bookSearchViewModel.fetchBooksData(url: urlString)
-                    //                }
+                        
+                } // ScrollView
                 } // VStack
+                .padding()
             } // NavigationView
             if loadingState {
                 ProgressView()
             }
-
+            
         } // ZStack
+        .onTapGesture {
+            hideKeyboard()
+        }
     } // body
 } // ContentView
 
- struct ContentView_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(BookSearchViewModel(searchBooksResult: SearchBooksResult(numFound: 0, books: [])))
     }
- }
+}
