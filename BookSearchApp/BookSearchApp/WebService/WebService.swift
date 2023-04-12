@@ -9,9 +9,7 @@ import SwiftUI
 
 final class WebService {
     static private let session = URLSession.shared
-    
     static private let searchAPIURL = Bundle.main.searchAPILink // APILinkList.plist Search_API_Link 값
-    
     static private let coversAPIURL = Bundle.main.coversAPILink // APILinkList.plist Covers_API_Link 값
     
     // MARK: - 책 fetch 함수
@@ -27,6 +25,7 @@ final class WebService {
        return searchResult
    }
 
+    // MARK: - Cover 이미지 fetch 함수
     static func fetchCoverImage(coverCode: Int?, size: String) async throws -> UIImage? {
         guard let coverCode = coverCode else { return nil }
         
