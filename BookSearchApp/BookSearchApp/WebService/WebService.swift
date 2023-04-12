@@ -13,10 +13,16 @@ final class WebService {
     static private let coversAPIURL = Bundle.main.coversAPILink // APILinkList.plist Covers_API_Link 값
     
     // MARK: - 책 fetch 함수
-   static func fetchBooksData(keyWords: String) async throws -> SearchBooksResult {
-       let requestURL: String = "\(searchAPIURL)\(keyWords)"
-
-       guard let url = URL(string: requestURL) else { return SearchBooksResult(numFound: 0, books: []) }
+    static func fetchBooksData(keyWords: String, page: Int) async throws -> SearchBooksResult {
+       let requestURL: String = "\(searchAPIURL)\(keyWords)&page=\(page)"
+        
+        print("요청 링크: \(requestURL)")
+        
+       guard let url = URL(string: requestURL) else {
+           print("요청 URL이 잘못됐습니다.")
+           
+           return SearchBooksResult(numFound: 0, books: [])
+       }
        
        let (data, _) = try await session.data(from: url)
        
@@ -37,6 +43,8 @@ final class WebService {
         }
         
         if let cachedImage = NSCacheManager.cachedImage(urlString: requestURL) {
+            print("캐시 이미지 반환")
+            
             return cachedImage
         } else {
             let (data, _) = try await session.data(from: url)
