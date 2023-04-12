@@ -36,7 +36,7 @@ struct ContentView: View {
                         .autocapitalization(.none)  // 자동 대문자 변환 비활성화
                         .padding(.bottom, 10)
                         .cornerRadius(10)
-                        .modifier(TextFieldClearButton(fieldText: $searchString))
+                        .modifier(TextFieldClearButton(fieldText: $searchString)) // Clear 버튼
                         Spacer()
                     }
                     .frame(height: 15)
@@ -87,8 +87,10 @@ struct ContentView: View {
             if loadingState {
                 ProgressView()
             }
-
         } // ZStack
+        .onTapGesture {
+            hideKeyboard()
+        }
     } // body
 } // ContentView
 
