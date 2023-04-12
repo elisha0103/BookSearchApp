@@ -8,8 +8,8 @@
 import Foundation
 
 struct SearchBooksResult: Codable {
-    let numFound: Int
-    let books: [Book]
+    var numFound: Int
+    var books: [Book]
     
     enum CodingKeys: String, CodingKey {
         case numFound
