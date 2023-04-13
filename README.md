@@ -51,7 +51,7 @@ BookSearchAppUITests
 
 ## 구현 화면
 
-|<img src="https://user-images.githubusercontent.com/41459466/231794900-aa9dbea2-42b8-4203-bdcb-075a98ea48a9.gif"></img>|<img src="https://user-images.githubusercontent.com/41459466/231794632-95469519-27a7-4c7a-a3b3-96829101a0c8.gif"></img>|
+|<img src="https://user-images.githubusercontent.com/41459466/231794900-aa9dbea2-42b8-4203-bdcb-075a98ea48a9.gif" width="200" height="400"/></img>|<img src="https://user-images.githubusercontent.com/41459466/231794632-95469519-27a7-4c7a-a3b3-96829101a0c8.gif" width="200" height="400"/></img>|
 |:-:|:-:|
 |`검색, 상세 화면`|`Pagenation 구현 화면`|
 
