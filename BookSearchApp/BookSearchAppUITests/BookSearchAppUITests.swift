@@ -20,11 +20,10 @@ final class BookSearchAppUITests: XCTestCase {
     // MARK: - 검색 UI, Detail View Link 이동
     func testSearchList() throws {
         let searchResultNumLabel = app.staticTexts["검색 결과: 0개"]
-        let scrollView = app.scrollViews.containing(.other, identifier:"Vertical scroll bar, 1 pages").element
+        let scrollView = app.scrollViews.containing(.other, identifier: "Vertical scroll bar, 1 pages").element
         
         app.textFields["도서 검색"].tap()
         
- 
         app.textFields["도서 검색"].tap()
         app.buttons["Next keyboard"].tap()
         
@@ -78,8 +77,8 @@ final class BookSearchAppUITests: XCTestCase {
         let scrollViewsQuery = app.scrollViews
         let elementsQuery = scrollViewsQuery.otherElements
         elementsQuery.buttons["The Fellowship of the Ring, J.R.R. Tolkien, 4.3"].tap()
-        scrollViewsQuery.otherElements.containing(.staticText, identifier:"The Fellowship of the Ring").element.swipeUp()
-        scrollViewsQuery.otherElements.containing(.staticText, identifier:"The Fellowship of the Ring").children(matching: .image).element.swipeDown()
+        scrollViewsQuery.otherElements.containing(.staticText, identifier: "The Fellowship of the Ring").element.swipeUp()
+        scrollViewsQuery.otherElements.containing(.staticText, identifier: "The Fellowship of the Ring").children(matching: .image).element.swipeDown()
         app.navigationBars["_TtGC7SwiftUI19UIHosting"].buttons["Back"].tap()
         
         let element = scrollViewsQuery.children(matching: .other).element(boundBy: 0).children(matching: .other).element
