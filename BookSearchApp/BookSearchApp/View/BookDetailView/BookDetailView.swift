@@ -47,8 +47,8 @@ struct BookDetailView: View {
                         .padding(.vertical, 10)
                     
                     HStack {
-                        VStack(alignment: .center, spacing: 10) { // 왼쪽
-                            // 평점이 없는 경우, 0으로 표시
+                        VStack(alignment: .center, spacing: 10) {
+                            
                             Text("\(book.presentRatingAverage.isEmpty ? "0" : book.presentRatingAverage)")
                                 .font(.system(size: 45))
                                 .bold()
@@ -56,11 +56,11 @@ struct BookDetailView: View {
                             Text("평점 \(book.presentRatingCount[0])개")
                                 .font(.caption)
                                 .foregroundColor(.gray)
-                        } // VStack
+                        }
                         
                         Spacer()
                         
-                        VStack(alignment: .trailing) { // 오른쪽
+                        VStack(alignment: .trailing) {
                             RatingBarView(
                                 ratingNumber: 5,
                                 ratingNumberCount: book.presentRatingCount[5],
@@ -91,15 +91,15 @@ struct BookDetailView: View {
                                 ratingTotalNumber: book.presentRatingCount[0]
                             )
                             
-                        } // VStack
+                        }
                         .frame(maxWidth: .infinity)
-                    } // HStack
-                } // VStack
+                    }
+                }
                 Spacer(minLength: 250)
             }
-        } // VStack
+        }
         .padding()
-    } // body
+    }
     
     // MARK: - 평점 점수별 Progress Bar
     struct RatingBarView: View {
@@ -126,11 +126,11 @@ struct BookDetailView: View {
                 )
                 .scaleEffect(x: 1, y: 2.5, anchor: .center)
                 
-            } // HStack
+            }
             .padding(.horizontal, 10)
-        } // body
-    } // RatingBarView
-} // BookDetailView
+        }
+    }
+}
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {

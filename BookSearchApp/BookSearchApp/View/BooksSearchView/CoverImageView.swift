@@ -47,9 +47,9 @@ struct CoverImageView: View {
             if loadingState {
                 ProgressView()
             }
-        } // ZStack
-    } // body
-} // CoverImageView
+        }
+    }
+} 
 
 struct CoverImageView_Previews: PreviewProvider {
     static var previews: some View {

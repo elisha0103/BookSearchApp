@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Array {
+extension Array { // Out of Index Crash 방지
     subscript(safe index: Int) -> Element? {
         return indices ~= index ? self[index] : nil
     }

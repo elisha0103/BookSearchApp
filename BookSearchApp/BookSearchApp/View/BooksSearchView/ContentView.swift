@@ -21,7 +21,7 @@ struct ContentView: View {
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
                             
-                            bookSearchViewModel.resetViewModelData() // 새로 검색하면 ViewModel 검색상태 초기화
+                            bookSearchViewModel.resetViewModelData()
                             
                             Task {
                                 loadingState.toggle()
@@ -30,11 +30,11 @@ struct ContentView: View {
                             }
                             
                         })
-                        .disableAutocorrection(true) // 자동 교정 비활성화
-                        .autocapitalization(.none)  // 자동 대문자 변환 비활성화
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
                         .padding(.bottom, 10)
                         .cornerRadius(10)
-                        .modifier(TextFieldClearButton(fieldText: $searchString)) // Clear 버튼
+                        .modifier(TextFieldClearButton(fieldText: $searchString))
                         Spacer()
                     }
                     .frame(height: 15)
@@ -64,7 +64,7 @@ struct ContentView: View {
                                     )
                                 }
                                 .accentColor(.black)
-                            } // ForEach
+                            }
                             
                             // MARK: - Pagenation
                             if !loadingState { // 검색 중에는 페이지네이션 동작 제한
@@ -84,29 +84,29 @@ struct ContentView: View {
                                 case .error(let message):
                                     Text("리스트 업데이트 오류\n\(message)")
                                         .foregroundColor(.red)
-                                } // switch
-                            } // if
+                                }
+                            }
                             
-                        } // LazyVGrid
+                        }
                         .padding(.horizontal, 5)
                         .padding(.top, 1)
                         .padding(.bottom, 120)
                         
-                    } // ScrollView
-                } // VStack
+                    }
+                }
                 .padding()
                 
                 if loadingState {
                     ProgressView()
                 }
 
-            } // ZStack
+            }
             .onTapGesture {
                 hideKeyboard()
             }
-        } // NavigationView
-    } // body
-} // ContentView
+        } 
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

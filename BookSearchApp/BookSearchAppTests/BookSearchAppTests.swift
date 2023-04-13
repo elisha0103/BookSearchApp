@@ -10,18 +10,16 @@ import XCTest
 
 final class BookSearchAppTests: XCTestCase {
     
+    // MARK: - Methods
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
     }
     
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         
         try super.tearDownWithError()
     }
     
-    // MARK: - 메모리에 캐시 데이터 저장
     func testSetImageInMemoryCache() throws {
         var image = UIImage(systemName: "book.closed")
         let memoryCache = NSCache<NSString, UIImage>()
@@ -43,7 +41,6 @@ final class BookSearchAppTests: XCTestCase {
             
     }
     
-    // MARK: - 디스크에 캐시 데이터 저장
     func testsetImageInDiskCache() throws {
         var image = UIImage(systemName: "book.closed")
         var fileManager = FileManager.default
@@ -65,7 +62,6 @@ final class BookSearchAppTests: XCTestCase {
 
     }
     
-    // MARK: - 캐시 로드 함수
     func testloadImageFromCache() throws {
         var image = UIImage(systemName: "book.closed")
         var loadImage: UIImage?
@@ -75,7 +71,6 @@ final class BookSearchAppTests: XCTestCase {
         XCTAssertTrue(loadImage != nil, "이미지 호출에 실패했습니다.")
     }
     
-    // MARK: - 디버깅을 위한 Cache 삭제함수
     func testdeleteImageMemoryCache() throws {
         let memoryCache = NSCache<NSString, UIImage>()
         let imageURL = URL(string: "book.closed")!
