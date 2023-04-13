@@ -18,7 +18,7 @@ final class BookSearchViewModel: ObservableObject {
     }
     
     var page = 1
-        
+    
     enum LoadingState: Comparable {
         case done
         case isLoading
@@ -29,7 +29,7 @@ final class BookSearchViewModel: ObservableObject {
     // MARK: - Initializers
     init(searchBooksResult: SearchBooksResult) {
         self.searchBooksResult = searchBooksResult
-                
+        
     }
     
     // MARK: - Methods
@@ -45,43 +45,45 @@ final class BookSearchViewModel: ObservableObject {
         let searchStringWithOutSpace = searchString
             .trimmingCharacters(in: [" "])
             .replacingOccurrences(of: " ", with: "+")
-
-        guard !searchStringWithOutSpace.isEmpty else { return }
         
-        guard loadingBooksDataState == LoadingState.done else { return }
+        guard !searchStringWithOutSpace.isEmpty,
+                loadingBooksDataState == LoadingState.done
+        else { return }
         // 데이터 fetch 중에 연속적인 fetch, 데이터의 끝, 에러 상황에서 호출 방지
         
         do {
             print("viewmodel start fetch")
-            // TODO: - loadingState 변경 시점 여기
+            DispatchQueue.main.sync { [weak self] in
+                self?.loadingBooksDataState = .isLoading
+            }
             let result = try await WebService.fetchBooksData(keyWords: searchStringWithOutSpace, page: self.page)
             
             print("현재 페이지: \(self.page)")
-
+            
             print("finish fetch")
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 var fetchBooks: [Book] = []
                 
-                self.loadingBooksDataState = .isLoading
+                self?.searchBooksResult.numFound = result.numFound
                 
-                self.searchBooksResult.numFound = result.numFound
-
                 for book in result.books {
                     fetchBooks.append(book)
                 }
-                self.searchBooksResult.books.append(contentsOf: fetchBooks)
+
+                self?.searchBooksResult.books.append(contentsOf: fetchBooks)
                 
-                self.loadingBooksDataState = (self.searchBooksResult.books.count == self.searchBooksResult.numFound) ?
+                self?.loadingBooksDataState =
+                (self?.searchBooksResult.books.count == self?.searchBooksResult.numFound) ?
                     .loadedAll : .done
-                if self.loadingBooksDataState == .loadedAll {
-                    print("데이터의 끝입니다. books: \(self.searchBooksResult.books.count)")
+                if self?.loadingBooksDataState == .loadedAll {
+                    print("데이터의 끝입니다. books: \(self?.searchBooksResult.books.count ?? -1)")
                 }
             }
             self.page += 1
         } catch let error as NSError {
             print("JSON fetch Error: \(error.localizedDescription)")
-            DispatchQueue.main.async {
-                self.loadingBooksDataState = .error("Could not load: \(error.localizedDescription)")
+            DispatchQueue.main.async { [weak self] in
+                self?.loadingBooksDataState = .error("Could not load: \(error.localizedDescription)")
             }
         }
     }

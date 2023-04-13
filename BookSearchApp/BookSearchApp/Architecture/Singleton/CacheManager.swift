@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class CacheManager {
+final class CacheManager {
     static private let memoryCache = NSCache<NSString, UIImage>()
     static private let fileManager = FileManager.default
     static private var imageData: Data?
@@ -16,8 +16,8 @@ class CacheManager {
         
     // MARK: - Cache 이미지 Load
     static func imageLoadCache(urlString: String) -> UIImage? {
-        guard let imageURL = URL(string: urlString) else { return nil }
-        guard let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
+        guard let imageURL = URL(string: urlString),
+        let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
         else { return nil }
         
         var filePath = URL(fileURLWithPath: cachesDir) // 기본 캐시 디렉토리를 경로로 설정
@@ -45,8 +45,8 @@ class CacheManager {
     
     // MARK: - NSCache 이미지 저장
     static func imageSetMemory(image: UIImage, urlString: String) {
-        guard let imageURL = URL(string: urlString) else { return }
-        guard let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
+        guard let imageURL = URL(string: urlString),
+        let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
         else { return }
         
         var filePath = URL(fileURLWithPath: cachesDir)
@@ -57,8 +57,8 @@ class CacheManager {
     
     // MARK: - DiskCache 이미지 저장
     static func imageSetDisk(image: UIImage, urlString: String) {
-        guard let imageURL = URL(string: urlString) else { return }
-        guard let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
+        guard let imageURL = URL(string: urlString),
+        let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
         else { return }
         
         var filePath = URL(fileURLWithPath: cachesDir)
