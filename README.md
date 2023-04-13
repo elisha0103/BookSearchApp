@@ -59,13 +59,13 @@ BookSearchAppUITests
 ## Troubleshooting
 ### **View 관련**
 
-<img src="https://user-images.githubusercontent.com/41459466/231787564-068a7e76-2f8f-4e3d-a1c4-c62db49e089d.png">
+<img src="https://user-images.githubusercontent.com/41459466/231787564-068a7e76-2f8f-4e3d-a1c4-c62db49e089d.png" width="200" height="400"/>
 
 - 문제: LazyVGrid 각 아이템 내 VStack(alignment: .leading) 정렬이 적용되지 않음
 
 - 원인: LazyVGrid에 각 아이템(셀)별로 부여되는 컨테이너 영역의 정렬이 필요
  
-<img src="https://user-images.githubusercontent.com/41459466/231787651-8878b4c1-9d58-4a0d-9eb9-2a639e36f276.png">
+<img src="https://user-images.githubusercontent.com/41459466/231787651-8878b4c1-9d58-4a0d-9eb9-2a639e36f276.png" width="200" height="400"/>
 
 - 해결: VStack의 ViewBuilder 정렬 값뿐만 아니라 컨테이너 .frame에도 정렬 수정자 적용 
     ```
