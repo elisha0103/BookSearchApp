@@ -1,7 +1,7 @@
 # BookSearchApp
 
 ### 프로젝트 소개
-<img src = "https://user-images.githubusercontent.com/41459466/231780761-7d46c06e-b514-4e41-9e39-5bc2f7e0b77f.jpg">
+<img src = "https://user-images.githubusercontent.com/41459466/231796941-b32657ee-33b9-492d-acf9-43a611364c00.jpg">
 
 ### 프로젝트 목표
 > [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
@@ -53,7 +53,7 @@ BookSearchAppUITests
 
 |<img src="https://user-images.githubusercontent.com/41459466/231794900-aa9dbea2-42b8-4203-bdcb-075a98ea48a9.gif"></img>|<img src="https://user-images.githubusercontent.com/41459466/231794632-95469519-27a7-4c7a-a3b3-96829101a0c8.gif"></img>|
 |:-:|:-:|
-|`검색 화면`|`상세 화면`|
+|`검색, 상세 화면`|`Pagenation 구현 화면`|
 
 
 ## Troubleshooting
@@ -118,29 +118,16 @@ BookSearchAppUITests
 <summary>Git 컨벤션</summary>
 <div markdown="1">
 
-- Swiftlint 적용
-
-- 네이밍
-    - 일반변수 / 상수인 경우 따로 접두사를 붙이지 않는다.
-    - enum case는 대문자로 시작한다.
-    - 일반적인 부분이 앞에, 구체적인 부분을 뒤에 둬 모호함을 없앤다.
-    - 클래스 함수에는 되도록 get을 붙이지 않는다.
-    - 액션 함수는 ‘주어 + 동사 + 목적어’ 형태를 사용한다.
-    - 약어로 시작하는 경우 소문자로 표기하고, 그 외 경우에는 항상 대문자로 표기한다.    
-    - 디자인 컨셉을 통일하고 진행했으면 전체적인 디자인을 구성하는데 효율적일거 같다.
-    
-- 기타
-    - 클로저 정의시 파라미터에는 괄호를 사용하지 않는다.
-    - 클로저 정의시 가능한 경우 타입 정의를 생략한다.
-    - 사용하지 않는 파라미터는 삭제하거나 _를 사용해 표시한다.
-    - 구조체 생성시 Swift 구조체 생성자를 사용한다.
-    - Array<T>, Dictionary<T: U> 보다는 [T], [T: U]를 사용한다.
-    - 언어에서 필수로 요구하지 않는 이상 self는 사용하지 않는다.
-    - 프로퍼티의 초기화는 가능하면 init에서 하고, unwrapped Optional의 사용을 지양한다.
-    - 더이상 상속이 발생하지 않는 클래스는 항상 final 키워드로 선언한다.
-    - switch - case 에서 가능한 경우 default를 사용하지 않는다.
-    - return은 사용하지 않는다.
-    - 사용하지 않는 코드는 주석 포함 모두 삭제한다.
+- Feat: 새로운 기능을 추가하 경우
+- Fit: 버그를 고친경우
+- Design: 사용자 UI 디자인 추가 및 변경
+- Style: 코드 포매 변경, 세미 콜로 누락, 코드 수정이 없는 경우
+- Refactor: 프로덕션 코드 리펙토링
+- Comment: 필요한 주석 추가 및 변경
+- Documents: 문서를 수정한 경우
+- Test: 테스트 추가, 테스트 리펙토링
+- Rename: 파일 혹은 폴더명을 수정하거나 옮기는 작업만 한 경우
+- Remove: 파일으 삭제한 작업만 수행한 경우
 
 </div>
 </details>
