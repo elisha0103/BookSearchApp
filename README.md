@@ -4,10 +4,10 @@
 <img src = "https://user-images.githubusercontent.com/41459466/231796941-b32657ee-33b9-492d-acf9-43a611364c00.jpg">
 
 ### 프로젝트 목표
-> [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
-> [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers)를 사용해 책 Cover 이미지 나타내기
-> Pagenation을 사용하여 무한 스크롤 사용해보기
-> Covers API로부터 받아온 이미지를 기기 메모리 / 디스크 캐시하여 자원 절약하기
+> - [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
+> - [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers)를 사용해 책 Cover 이미지 나타내기
+> - Pagenation을 사용하여 무한 스크롤 사용해보기
+> - Covers API로부터 받아온 이미지를 기기 메모리 / 디스크 캐시하여 자원 절약하기
 
 ### 개발 환경
 - Deployment Target: iOS 14.1
