@@ -7,3 +7,8 @@ opt_in_rules:
   
   # 빈 String 문자열과 비교하는 것 보다는 .isEmpty를 사용하는 것이 좋습니다. https://realm.github.io/SwiftLint/empty_string.html
   - empty_string
+  
+excluded:
+- BookSearchAppTests/
+- BooksSearchSlowTests/
+- BookSearchAppUITests/

@@ -38,7 +38,6 @@ struct BookDetailView: View {
                 Spacer(minLength: 30)
                 
                 // MARK: - 평점
-                // TODO: - 별 그리기
                 
                 VStack {
                     Text("평점")
