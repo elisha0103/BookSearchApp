@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 final class BookSearchViewModel: ObservableObject {
+    // MARK: - Properties
     @Published var searchBooksResult: SearchBooksResult
-   // @Published var searchString: String = ""    // 타이핑 검색 때 사용
     @Published var loadingBooksDataState: LoadingState = .done {
         didSet {
             print("state changed to: \(loadingBooksDataState)")
@@ -18,10 +18,7 @@ final class BookSearchViewModel: ObservableObject {
     }
     
     var page = 1
-    
-    // TODO: - AnyCancellable
-//    var subscriptions = Set<AnyCancellable>()
-    
+        
     enum LoadingState: Comparable {
         case done
         case isLoading
@@ -29,23 +26,13 @@ final class BookSearchViewModel: ObservableObject {
         case error(String)
     }
     
+    // MARK: - Initializers
     init(searchBooksResult: SearchBooksResult) {
         self.searchBooksResult = searchBooksResult
-        
-        //        $searchString
-        //            .dropFirst()
-        //            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-        //            .sink{ [ unowned self ] term in
-        //                Task {
-        //                    self.loadingBooksDataState = .done
-        //                    self.searchBooksResult.books = []
-        //                    try await self.fetchBooksData(keywords: term)
-        //                }
-        //            }.store(in: &subscriptions)
-        
+                
     }
     
-    // MARK: - ViewModel 정보 초기화
+    // MARK: - Methods
     func resetViewModelData() {
         self.loadingBooksDataState = .done
         self.searchBooksResult.numFound = 0
@@ -53,12 +40,11 @@ final class BookSearchViewModel: ObservableObject {
         self.page = 1
     }
     
-    // MARK: - 도서 검색 함수
     func fetchBooksData(searchString: String) async throws {
         
         let searchStringWithOutSpace = searchString
-            .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
-            .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환
+            .trimmingCharacters(in: [" "])
+            .replacingOccurrences(of: " ", with: "+")
 
         guard !searchStringWithOutSpace.isEmpty else { return }
         
@@ -67,7 +53,7 @@ final class BookSearchViewModel: ObservableObject {
         
         do {
             print("viewmodel start fetch")
-            
+            // TODO: - loadingState 변경 시점 여기
             let result = try await WebService.fetchBooksData(keyWords: searchStringWithOutSpace, page: self.page)
             
             print("현재 페이지: \(self.page)")

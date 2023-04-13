@@ -9,22 +9,21 @@ import XCTest
 @testable import BookSearchApp
 
 final class BooksSearchSlowTests: XCTestCase {
+    // MARK: - Properties
     var sut: URLSession!
     
+    // MARK: - Methods
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
         sut = URLSession(configuration: .default)
     }
     
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         sut = nil
         try super.tearDownWithError()
     }
     
     
-    // MARK: - 도서 검색 테스트
     func testFetchBooksDataWithSearchString() async throws {
         let searchURLString = "https://openlibrary.org/search.json?q="
         let guess = "thr lord of rings"
@@ -57,7 +56,6 @@ final class BooksSearchSlowTests: XCTestCase {
         await fulfillment(of: [promise], timeout: 5)
     }
     
-    // MARK: - 이미지 검색 테스트
     func testFetchCoverImageWithCoverI() async throws {
         let coversURLString = "https://covers.openlibrary.org/b/id/"
         let coverCode: Int = 9255566

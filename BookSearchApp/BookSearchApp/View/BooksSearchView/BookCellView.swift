@@ -18,7 +18,7 @@ struct BookCellView: View {
         self.presentAuthors = presentAuthors
         self.presentRatingAverage = presentRatingAverage
         self.coverID = coverID
-    } // init
+    }
     
     var body: some View {
         VStack {
@@ -44,15 +44,15 @@ struct BookCellView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 10)
                         }
-                    } // HStack
+                    }
                     
                     Spacer()
                     
-                } // VStack
+                }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-        } // VStack
+        }
         .frame(width: 175, height: 250)
         
-    } // body
-} // BookCellView
+    } 
+}
