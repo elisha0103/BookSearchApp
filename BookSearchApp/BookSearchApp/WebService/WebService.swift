@@ -9,8 +9,8 @@ import SwiftUI
 
 final class WebService {
     static private let session = URLSession.shared
-    static private let searchAPIURL = Bundle.main.searchAPILink // APILinkList.plist Search_API_Link 값
-    static private let coversAPIURL = Bundle.main.coversAPILink // APILinkList.plist Covers_API_Link 값
+    static private let searchAPIURL = "https://openlibrary.org/search.json?q=" // Search_API
+    static private let coversAPIURL = "https://covers.openlibrary.org/b/id/" // Covers_API 값
     
     // MARK: - 책 fetch 함수
     static func fetchBooksData(keyWords: String, page: Int) async throws -> SearchBooksResult {
