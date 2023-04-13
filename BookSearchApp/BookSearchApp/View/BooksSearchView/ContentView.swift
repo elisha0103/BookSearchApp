@@ -11,6 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var bookSearchViewModel: BookSearchViewModel
     @State var searchString: String = ""
     @State private var loadingState: Bool = false // ProgressView 출력용
+    @State var retainString: String = "" // 검색 후 검색 키워드 임시저장하는 변수
     
     var body: some View {
         NavigationView {
@@ -20,12 +21,12 @@ struct ContentView: View {
                     // MARK: - 도서 검색 View
                     HStack {
                         TextField("도서 검색", text: $searchString, onCommit: {
-                            
+                            self.retainString = searchString
                             bookSearchViewModel.resetViewModelData()
                             
                             Task {
                                 loadingState.toggle()
-                                try await bookSearchViewModel.fetchBooksData(searchString: searchString)
+                                try await bookSearchViewModel.fetchBooksData(searchString: retainString)
                                 loadingState.toggle()
                             }
                             
@@ -36,6 +37,23 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .modifier(TextFieldClearButton(fieldText: $searchString))
                         Spacer()
+                        
+                        Button {
+                            self.retainString = searchString
+                            bookSearchViewModel.resetViewModelData()
+                            
+                            Task {
+                                loadingState.toggle()
+                                try await bookSearchViewModel.fetchBooksData(searchString: retainString)
+                                loadingState.toggle()
+                            }
+                            
+                        } label: {
+                            Text("검색")
+                                .foregroundColor(.black)
+                                .bold()
+                        }
+
                     }
                     .frame(height: 15)
                     
@@ -73,11 +91,15 @@ struct ContentView: View {
                                     Color.clear
                                         .onAppear {
                                             Task {
-                                                try await bookSearchViewModel.fetchBooksData(searchString: searchString)
+                                                try await bookSearchViewModel.fetchBooksData(searchString: retainString)
                                             }
                                         }
                                 case .isLoading:
                                     ProgressView()
+                                        .frame(maxWidth: .infinity)
+                                        .progressViewStyle(.circular)
+                                    ProgressView()
+                                        .frame(maxWidth: .infinity)
                                         .progressViewStyle(.circular)
                                 case .loadedAll:
                                     EmptyView()

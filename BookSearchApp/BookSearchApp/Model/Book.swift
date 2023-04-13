@@ -7,16 +7,6 @@
 
 import Foundation
 
-//struct SearchBooksResult: Codable {
-//    var numFound: Int
-//    var books: [Book]
-//    
-//    enum CodingKeys: String, CodingKey {
-//        case numFound
-//        case books = "docs"
-//    }
-//}
-
 struct Book: Codable, Hashable {
     let key: String                                                         // Book Key
     let title: String                                                       // 책 제목
