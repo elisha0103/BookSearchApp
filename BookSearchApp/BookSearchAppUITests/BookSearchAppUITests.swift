@@ -8,8 +8,10 @@
 import XCTest
 
 final class BookSearchAppUITests: XCTestCase {
+    // MARK: - Properties
     var app: XCUIApplication!
     
+    // MARK: - Methods
     override func setUpWithError() throws {
         try super.setUpWithError()
         continueAfterFailure = false
@@ -17,7 +19,6 @@ final class BookSearchAppUITests: XCTestCase {
         app.launch()
     }
     
-    // MARK: - 검색 UI, Detail View Link 이동
     func testSearchList() throws {
         let searchResultNumLabel = app.staticTexts["검색 결과: 0개"]
         let scrollView = app.scrollViews.containing(.other, identifier: "Vertical scroll bar, 1 pages").element

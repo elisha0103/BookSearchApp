@@ -35,7 +35,7 @@ final class WebService {
     static func fetchCoverImage(coverCode: Int?, size: String) async throws -> UIImage? {
         guard let coverCode = coverCode else { return nil }
         
-        let requestURL: String = "\(coversAPIURL)\(coverCode)-\(size).jpg" // API Request URL String
+        let requestURL: String = "\(coversAPIURL)\(coverCode)-\(size).jpg" 
         
         guard let url = URL(string: requestURL) else {
             print("URL String Error")
