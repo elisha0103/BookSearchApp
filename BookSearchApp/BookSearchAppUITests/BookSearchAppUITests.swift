@@ -19,14 +19,11 @@ final class BookSearchAppUITests: XCTestCase {
         app.launch()
     }
     
+    /* UITest (네트워크 환경 확인)
     func testSearchList() throws {
-        let searchResultNumLabel = app.staticTexts["검색 결과: 0개"]
-        let scrollView = app.scrollViews.containing(.other, identifier: "Vertical scroll bar, 1 pages").element
-        
+                
         app.textFields["도서 검색"].tap()
-        
-        app.textFields["도서 검색"].tap()
-        app.buttons["Next keyboard"].tap()
+       app.buttons["Next keyboard"].tap()
         
         let tKey = app/*@START_MENU_TOKEN@*/.keys["t"]/*[[".keyboards.keys[\"t\"]",".keys[\"t\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         tKey.tap()
@@ -73,6 +70,9 @@ final class BookSearchAppUITests: XCTestCase {
         let gKey = app/*@START_MENU_TOKEN@*/.keys["g"]/*[[".keyboards.keys[\"g\"]",".keys[\"g\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
         gKey.tap()
         
+        let sKey = app.keys["s"]
+        sKey.tap()
+        
         app/*@START_MENU_TOKEN@*/.buttons["Return"]/*[[".keyboards",".buttons[\"return\"]",".buttons[\"Return\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
         
         let scrollViewsQuery = app.scrollViews
@@ -84,16 +84,18 @@ final class BookSearchAppUITests: XCTestCase {
         
         let element = scrollViewsQuery.children(matching: .other).element(boundBy: 0).children(matching: .other).element
         
-        for _ in 0..<30 {
+        for _ in 0..<15 {
             element.swipeUp()
             
         }
-        for _ in 0..<30 {
+        for _ in 0..<10 {
             element.swipeDown()
             
         }
         
     }
+     
+     */
     
     func testScoreIsComputerPerFormance() {
         measure(metrics: [XCTClockMetric(), XCTCPUMetric(), XCTStorageMetric(), XCTMemoryMetric()]) {
