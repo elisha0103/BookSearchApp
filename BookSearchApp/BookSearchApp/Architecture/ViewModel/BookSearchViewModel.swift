@@ -53,7 +53,7 @@ final class BookSearchViewModel: ObservableObject {
         
         do {
             print("viewmodel start fetch")
-            
+            // TODO: - loadingState 변경 시점 여기
             let result = try await WebService.fetchBooksData(keyWords: searchStringWithOutSpace, page: self.page)
             
             print("현재 페이지: \(self.page)")
