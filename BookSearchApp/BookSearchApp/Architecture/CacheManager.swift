@@ -25,7 +25,7 @@ class CacheManager {
         
         if let cachedImage = memoryCache.object(forKey: filePath.lastPathComponent as NSString) { // 메모리에 이미지 파일 있으면 반환
             print("캐시 메모리에 있는 이미지를 반환")
-            
+
             return cachedImage
         } else if fileManager.fileExists(atPath: filePath.path) { // 메모리에 캐시 파일 없고 디스크 경로에 있으면 이미지 반환
             imageData = try? Data(contentsOf: filePath)
