@@ -12,90 +12,92 @@ struct BookDetailView: View {
     
     var body: some View {
         VStack {
-            // MARK: - 책 기본 정보
-            HStack(alignment: .top) {
-                CoverImageView(coverCode: book.coverI)
-            }
-            .padding(.top, 20)
-            
-            VStack(alignment: .leading) {
-                Text("\(book.title)")
-                    .font(.footnote)
-                    .lineLimit(5)
-                Text("\(book.presentAuthors)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-                Text("\(book.presentNumberOfPageMedian)")
-                    .font(.caption)
-                    .foregroundColor(.gray)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 10)
-            
-            Divider()
-            
-            Spacer(minLength: 30)
-            
-            // MARK: - 평점
-            // TODO: - 별 그리기
-            
-            VStack {
-                Text("평점")
-                    .font(.title3)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical, 10)
+            ScrollView {
+                // MARK: - 책 기본 정보
+                HStack(alignment: .top) {
+                    CoverImageView(coverCode: book.coverI)
+                }
+                .padding(.top, 20)
                 
-                HStack {
-                    VStack(alignment: .center, spacing: 10) { // 왼쪽
-                        // 평점이 없는 경우, 0으로 표시
-                        Text("\(book.presentRatingAverage.isEmpty ? "0" : book.presentRatingAverage)")
-                            .font(.system(size: 45))
-                            .bold()
-                        
-                        Text("평점 \(book.presentRatingCount[0])개")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    } // VStack
+                VStack(alignment: .leading) {
+                    Text("\(book.title)")
+                        .font(.footnote)
+                        .lineLimit(5)
+                    Text("\(book.presentAuthors)")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                    Text("\(book.presentNumberOfPageMedian)")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 10)
+                
+                Divider()
+                
+                Spacer(minLength: 30)
+                
+                // MARK: - 평점
+                // TODO: - 별 그리기
+                
+                VStack {
+                    Text("평점")
+                        .font(.title3)
+                        .bold()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 10)
                     
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) { // 오른쪽
-                        RatingBarView(
-                            ratingNumber: 5,
-                            ratingNumberCount: book.presentRatingCount[5],
-                            ratingTotalNumber: book.presentRatingCount[0]
-                        )
+                    HStack {
+                        VStack(alignment: .center, spacing: 10) { // 왼쪽
+                            // 평점이 없는 경우, 0으로 표시
+                            Text("\(book.presentRatingAverage.isEmpty ? "0" : book.presentRatingAverage)")
+                                .font(.system(size: 45))
+                                .bold()
+                            
+                            Text("평점 \(book.presentRatingCount[0])개")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        } // VStack
                         
-                        RatingBarView(
-                            ratingNumber: 4,
-                            ratingNumberCount: book.presentRatingCount[4],
-                            ratingTotalNumber: book.presentRatingCount[0]
-                        )
+                        Spacer()
                         
-                        RatingBarView(
-                            ratingNumber: 3,
-                            ratingNumberCount: book.presentRatingCount[3],
-                            ratingTotalNumber: book.presentRatingCount[0]
-                        )
-                        
-                        RatingBarView(
-                            ratingNumber: 2,
-                            ratingNumberCount: book.presentRatingCount[2],
-                            ratingTotalNumber: book.presentRatingCount[0]
-                        )
-                        
-                        RatingBarView(
-                            ratingNumber: 1,
-                            ratingNumberCount: book.presentRatingCount[1],
-                            ratingTotalNumber: book.presentRatingCount[0]
-                        )
-                        
-                    } // VStack
-                    .frame(maxWidth: .infinity)
-                } // HStack
-            } // VStack
-            Spacer(minLength: 250)
+                        VStack(alignment: .trailing) { // 오른쪽
+                            RatingBarView(
+                                ratingNumber: 5,
+                                ratingNumberCount: book.presentRatingCount[5],
+                                ratingTotalNumber: book.presentRatingCount[0]
+                            )
+                            
+                            RatingBarView(
+                                ratingNumber: 4,
+                                ratingNumberCount: book.presentRatingCount[4],
+                                ratingTotalNumber: book.presentRatingCount[0]
+                            )
+                            
+                            RatingBarView(
+                                ratingNumber: 3,
+                                ratingNumberCount: book.presentRatingCount[3],
+                                ratingTotalNumber: book.presentRatingCount[0]
+                            )
+                            
+                            RatingBarView(
+                                ratingNumber: 2,
+                                ratingNumberCount: book.presentRatingCount[2],
+                                ratingTotalNumber: book.presentRatingCount[0]
+                            )
+                            
+                            RatingBarView(
+                                ratingNumber: 1,
+                                ratingNumberCount: book.presentRatingCount[1],
+                                ratingTotalNumber: book.presentRatingCount[0]
+                            )
+                            
+                        } // VStack
+                        .frame(maxWidth: .infinity)
+                    } // HStack
+                } // VStack
+                Spacer(minLength: 250)
+            }
         } // VStack
         .padding()
     } // body

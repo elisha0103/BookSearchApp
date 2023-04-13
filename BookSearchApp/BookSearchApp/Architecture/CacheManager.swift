@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class NSCacheManager {
+class CacheManager {
     static private let memoryCache = NSCache<NSString, UIImage>()
     static private let fileManager = FileManager.default
     static private var imageData: Data?
