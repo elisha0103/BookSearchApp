@@ -6,7 +6,7 @@
 ### 프로젝트 목표
 > - [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
 > - [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers)를 사용해 책 Cover 이미지 나타내기
-> - Pagenation을 사용하여 무한 스크롤 사용해보기
+> - Pagination 사용하여 무한 스크롤 사용해보기
 > - Covers API로부터 받아온 이미지를 기기 메모리 / 디스크 캐시하여 자원 절약하기
 
 ### 개발 환경
@@ -38,7 +38,7 @@ BookSearchAppUITests
 ### 주요 기능
 - 사용자가 TextField에 입력한 Text를 바탕으로 검색 결과를 받아옴
 - URLSession을 통해 네트워크 통신 구현 (테스트 코드를 통해 실행)
-- Pagenation을 통해 스크롤을 화면 최하단으로 내리면 다음 데이터를 받아옴(추가 데이터가 없으면 반환 안함)
+- Pagination을 통해 스크롤을 화면 최하단으로 내리면 다음 데이터를 받아옴(추가 데이터가 없으면 반환 안함)
 - URLSession을 통해 네트워크 통신이 되는동안 로딩 View를 구성함
 
 ## Feature-2. Cover Image 불러오기 구현
@@ -53,7 +53,7 @@ BookSearchAppUITests
 
 |<img src="https://user-images.githubusercontent.com/41459466/231794900-aa9dbea2-42b8-4203-bdcb-075a98ea48a9.gif" width="200" height="400"/></img>|<img src="https://user-images.githubusercontent.com/41459466/231794632-95469519-27a7-4c7a-a3b3-96829101a0c8.gif" width="200" height="400"/></img>|
 |:-:|:-:|
-|`검색, 상세 화면`|`Pagenation 구현 화면`|
+|`검색, 상세 화면`|`Pagination 구현 화면`|
 
 
 ## Troubleshooting
