@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    @State var book: Book
+    @Binding var book: BookPModel
     
     var body: some View {
         VStack {
             ScrollView {
                 // MARK: - 책 기본 정보
                 HStack(alignment: .top) {
-                    CoverImageView(coverCode: book.coverI)
+                    CoverImageView(coverImageViewModel: CoverImageViewModel(uIImage: nil, coverCode: book.coverI))
                 }
                 .padding(.top, 20)
                 
@@ -134,7 +134,7 @@ struct BookDetailView: View {
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(book: Book(
+        BookDetailView(book: Binding.constant(BookPModel(
             key: "key",
             title: "Book_Title",
             authorName: ["author", "author", "author"],
@@ -148,5 +148,6 @@ struct BookDetailView_Previews: PreviewProvider {
             ratingsCount5: 49,
             numberOfPagesMedian: 1193
         ))
+        )
     }
 }
