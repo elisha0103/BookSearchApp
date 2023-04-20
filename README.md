@@ -81,7 +81,7 @@ BookSearchAppUITests
 
 
 ### **Cache 관련**
-- 배경: 이미지 캐시에 대한 ViewModel을 만들게 되면 여러 스레드에서 한 개의 ViewModel, NSCache를 사용하게 되어 크래시가 발생할 경우를 우려하여 각 이미지 View Struct 안에 MVVM형식(데이터 바인딩)을 취하는 방식으로 이미지 캐시 구현 시도
+- 배경: 이미지 캐시에 대한 Singleton 객체를 만들게 되면 여러 스레드에서 한 개의 객체에 NSCache 작업을 수행하게 되어 크래시가 발생할 것을 우려하여 각 이미지 View Struct 안에 MVVM형식(데이터 바인딩)을 취하는 방식으로 이미지 캐시 구현 시도
 
 - 문제: 구조체 View안에서 NSCache가 제대로 저장되지 않는 문제
 
