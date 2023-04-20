@@ -71,6 +71,14 @@ BookSearchAppUITests
     ```
     .frame(maxWidth: .infinity, alignment: .leading)
     ```
+    
+    
+- 문제: ContentView에서 NavigationLink로 DetailView로 이동한 경우, DetailView에서 가지고 있는 프로퍼티들이 State 관리가 되지 않음
+
+- 원인: DetailView의 프로퍼티들이 State 변수로 선언되지 않음
+
+- 해결: DetailView의 프로퍼티들을 바인딩 프로퍼티 래퍼를 사용하여 선언하고, NavigationLink로 DetailView로 연결시켜줄 때, ViewModel의 상태 프로퍼티들을 DetailView의 프로퍼티들과 바인딩해줌
+
 
 ### **Cache 관련**
 - 배경: 이미지 캐시에 대한 ViewModel을 만들게 되면 여러 스레드에서 한 개의 ViewModel, NSCache를 사용하게 되어 크래시가 발생할 경우를 우려하여 각 이미지 View Struct 안에 MVVM형식(데이터 바인딩)을 취하는 방식으로 이미지 캐시 구현 시도
@@ -80,6 +88,20 @@ BookSearchAppUITests
 - 원인: NSCache가 사용되는 구조체 View가 LazyVGrid에 사용되는 View이고, NSCache 는 캐시 삭제시 NSDiscardableContent 프로토콜을 따르므로, 사용되지 않는 Content(LazyVGrid에서 보여지지 않는 View)에 해당하는 메모리는 자동 삭제 됨
 
 - 해결: CacheManager 클래스를 싱글턴 아키텍처 적용하여 한 객체에서 NSCache 관리되도록 구현
+
+
+### **URLSession 관련**
+- 배경: API로부터 URLSession으로 이미지 로드가 미완료된 항목에 대해 중복된 요청이 발생될 수 있음
+
+- 문제: 문제: URLSessionTask에 이미 요청된 작업 중 동일한 요청인지 먼저 비교하고 API에 데이터 로드를 할 수 없는 문제
+
+- 원인
+    - 1. URLSession으로 GET 데이터를 요청할 때, 비동기적으로 작업이 요청되고, URLSessionTask의 객체를 반환하는 URLSession.getAllTasks 함수도 비동기적으로 작업을 수행하기 때문에 sink가 맞지 않아 제대로 된 작업이 이뤄지지 않음
+    - 2. URLSession의 기존 작업을 모두 취소하고 재요청을 보낼 수는 있지만, 이는 URLSessionTask Queue에 동일한 이미지 로드 요청건이 존재하지 않을 뿐이고 중복된 요청 자체를 API에 하지 않는 목적과는 다른 해결방법임
+    - 3. URLSessionTask는 동일한 URL에 대한 과제일지라도, 과제에 대한 객체는 서로 다르기 때문에 비교대상이 될 수 없음
+
+- 해결: CoverImageViewModel을 구현하여 CoverImageView에 대한 ViewModel 객체를 개별적으로 생성하고 ViewModel의 loadingState flag 변수를 사용하여 이미 API 함수가 호출된 경우 이미지 로드가 미완료 된 View에 한 해서는 중복된 요청 자체가 발생되지 않도록 함
+
 
 
 ## 참고사항
