@@ -13,29 +13,29 @@ final class WebService {
     static private let coversAPIURL = "https://covers.openlibrary.org/b/id/" // Covers_API 값
     
     // MARK: - 책 fetch 함수
-    static func fetchBooksData(keyWords: String, page: Int) async throws -> SearchBooksResult {
-       let requestURL: String = "\(searchAPIURL)\(keyWords)&page=\(page)"
+    static func fetchBooksData(keyWords: String, page: Int) async throws -> SearchBooksResultPModel {
+        let requestURL: String = "\(searchAPIURL)\(keyWords)&page=\(page)"
         
         print("요청 링크: \(requestURL)")
         
-       guard let url = URL(string: requestURL) else {
-           print("요청 URL이 잘못됐습니다.")
-           
-           return SearchBooksResult(numFound: 0, books: [])
-       }
-       
-       let (data, _) = try await session.data(from: url)
-       
-       let searchResult = try JSONDecoder().decode(SearchBooksResult.self, from: data)
-       
-       return searchResult
-   }
-
+        guard let url = URL(string: requestURL) else {
+            print("요청 URL이 잘못됐습니다.")
+            
+            return SearchBooksResultPModel(numFound: 0, books: [])
+        }
+        
+        let (data, _) = try await session.data(from: url)
+        
+        let searchResult = try JSONDecoder().decode(SearchBooksResult.self, from: data)
+        
+        return SearchBooksResultPModel.converTo(searchResult)
+    }
+    
     // MARK: - Cover 이미지 fetch 함수
     static func fetchCoverImage(coverCode: Int?, size: String) async throws -> UIImage? {
         guard let coverCode = coverCode else { return nil }
         
-        let requestURL: String = "\(coversAPIURL)\(coverCode)-\(size).jpg" 
+        let requestURL: String = "\(coversAPIURL)\(coverCode)-\(size).jpg"
         
         guard let url = URL(string: requestURL) else {
             print("URL String Error")
@@ -47,6 +47,11 @@ final class WebService {
             
             return cachedImage
         } else { // 기기에 캐시 파일 없으면 서버로부터 load
+            let urlRequest = URLRequest(url: url)
+            if session.dataTask(with: urlRequest).state == URLSessionTask.State.running {
+                
+            }
+            
             let (data, _) = try await session.data(from: url)
             
             guard let image = UIImage(data: data) else {

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		661439B029E81D7100ED6488 /* SearchBooksResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661439AF29E81D7100ED6488 /* SearchBooksResult.swift */; };
 		6636887929E8109F00E28A75 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6636887829E8109F00E28A75 /* ArrayExtension.swift */; };
+		665B8A3F29EFB0BD00EF17F1 /* BookPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B8A3E29EFB0BD00EF17F1 /* BookPModel.swift */; };
+		665B8A4129EFB7C700EF17F1 /* SearchBooksResultPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B8A4029EFB7C700EF17F1 /* SearchBooksResultPModel.swift */; };
+		665B8A4329EFEEF600EF17F1 /* CoverImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B8A4229EFEEF600EF17F1 /* CoverImageViewModel.swift */; };
 		66879B8C29E7AFC7000E639A /* BookSearchAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66879B8B29E7AFC7000E639A /* BookSearchAppTests.swift */; };
 		66879B9929E7B76F000E639A /* BooksSearchSlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66879B9829E7B76F000E639A /* BooksSearchSlowTests.swift */; };
 		66879BAA29E7D023000E639A /* BookSearchAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66879BA929E7D023000E639A /* BookSearchAppUITests.swift */; };
@@ -56,6 +59,9 @@
 /* Begin PBXFileReference section */
 		661439AF29E81D7100ED6488 /* SearchBooksResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksResult.swift; sourceTree = "<group>"; };
 		6636887829E8109F00E28A75 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		665B8A3E29EFB0BD00EF17F1 /* BookPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPModel.swift; sourceTree = "<group>"; };
+		665B8A4029EFB7C700EF17F1 /* SearchBooksResultPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksResultPModel.swift; sourceTree = "<group>"; };
+		665B8A4229EFEEF600EF17F1 /* CoverImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverImageViewModel.swift; sourceTree = "<group>"; };
 		66879B8929E7AFC7000E639A /* BookSearchAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookSearchAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66879B8B29E7AFC7000E639A /* BookSearchAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchAppTests.swift; sourceTree = "<group>"; };
 		66879B9629E7B76F000E639A /* BooksSearchSlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BooksSearchSlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				669DE1C729E50640007C8819 /* BookSearchViewModel.swift */,
+				665B8A4229EFEEF600EF17F1 /* CoverImageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -214,6 +221,8 @@
 			children = (
 				669DE1C929E506A7007C8819 /* Book.swift */,
 				661439AF29E81D7100ED6488 /* SearchBooksResult.swift */,
+				665B8A3E29EFB0BD00EF17F1 /* BookPModel.swift */,
+				665B8A4029EFB7C700EF17F1 /* SearchBooksResultPModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -474,6 +483,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				669DE1B429E4EBF4007C8819 /* ContentView.swift in Sources */,
+				665B8A3F29EFB0BD00EF17F1 /* BookPModel.swift in Sources */,
+				665B8A4329EFEEF600EF17F1 /* CoverImageViewModel.swift in Sources */,
 				669DE1D029E54CC1007C8819 /* View+.swift in Sources */,
 				66C3FBC529E595AF0059BE1B /* BookDetailView.swift in Sources */,
 				6636887929E8109F00E28A75 /* ArrayExtension.swift in Sources */,
@@ -483,6 +494,7 @@
 				66C3FBC729E65FD70059BE1B /* CoverImageView.swift in Sources */,
 				669DE1CA29E506A7007C8819 /* Book.swift in Sources */,
 				661439B029E81D7100ED6488 /* SearchBooksResult.swift in Sources */,
+				665B8A4129EFB7C700EF17F1 /* SearchBooksResultPModel.swift in Sources */,
 				669DE1CD29E507AB007C8819 /* WebService.swift in Sources */,
 				669DE1C829E50640007C8819 /* BookSearchViewModel.swift in Sources */,
 				66C3FBC929E697710059BE1B /* CacheManager.swift in Sources */,

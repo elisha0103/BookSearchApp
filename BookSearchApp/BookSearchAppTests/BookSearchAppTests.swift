@@ -21,7 +21,7 @@ final class BookSearchAppTests: XCTestCase {
     }
         
     func testloadImageFromCache() throws {
-        var loadImage: UIImage?
+//        var loadImage: UIImage?
         var image = UIImage(systemName: "book.closed")
         let memoryCache = NSCache<NSString, UIImage>()
         var fileManager = FileManager.default

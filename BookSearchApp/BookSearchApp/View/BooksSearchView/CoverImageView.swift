@@ -8,14 +8,11 @@
 import SwiftUI
 
 struct CoverImageView: View {
-    @State var uIImage: UIImage?
-    @State private var loadingState: Bool = false // ProgressView 출력용
-    
-    let coverCode: Int?
+    @ObservedObject var coverImageViewModel: CoverImageViewModel
     
     var body: some View {
         ZStack {
-            if let uIImage = uIImage {
+            if let uIImage = coverImageViewModel.uIImage {
                 Image(uiImage: uIImage)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -29,30 +26,32 @@ struct CoverImageView: View {
                     .shadow(radius: 6)
                     .onAppear {
                         Task {
-                            loadingState.toggle()
-                            if let cacheImage = try await WebService.fetchCoverImage(coverCode: coverCode, size: "M") {
-                                uIImage = cacheImage
-                            } else {
-                                guard let noImage = UIImage(named: "NoImage.png") else {
-                                    uIImage = UIImage(systemName: "book.closed")
-                                    return
-                                    
+                            if !coverImageViewModel.loadingState {
+                                coverImageViewModel.loadingState = true
+                                if let cacheImage = try await WebService.fetchCoverImage(coverCode: coverImageViewModel.coverCode, size: "M") {
+                                    coverImageViewModel.uIImage = cacheImage
+                                } else {
+                                    guard let noImage = UIImage(named: "NoImage.png") else {
+                                        coverImageViewModel.uIImage = UIImage(systemName: "book.closed")
+                                        return
+                                        
+                                    }
+                                    coverImageViewModel.uIImage = noImage
                                 }
-                                uIImage = noImage
+                                coverImageViewModel.loadingState = false
                             }
-                            loadingState.toggle()
                         }
                     }
             }
-            if loadingState {
+            if coverImageViewModel.loadingState {
                 ProgressView()
             }
         }
     }
 } 
 
-struct CoverImageView_Previews: PreviewProvider {
-    static var previews: some View {
-        CoverImageView(coverCode: 240727)
-    }
-}
+// struct CoverImageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CoverImageView(coverImageViewModel: cover)
+//    }
+// }

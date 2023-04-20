@@ -24,10 +24,12 @@ struct ContentView: View {
                             self.retainString = searchString
                             bookSearchViewModel.resetViewModelData()
                             
-                            Task {
-                                loadingState.toggle()
-                                try await bookSearchViewModel.fetchBooksData(searchString: retainString)
-                                loadingState.toggle()
+                            if loadingState == false {
+                                Task {
+                                    loadingState = true
+                                    await bookSearchViewModel.fetchBooksData(searchString: retainString)
+                                    loadingState = false
+                                }
                             }
                             
                         })
@@ -42,23 +44,23 @@ struct ContentView: View {
                             self.retainString = searchString
                             bookSearchViewModel.resetViewModelData()
                             
-                            Task {
-                                loadingState.toggle()
-                                try await bookSearchViewModel.fetchBooksData(searchString: retainString)
-                                loadingState.toggle()
-                            }
-                            
+                                Task {
+                                    loadingState = true
+                                    await bookSearchViewModel.fetchBooksData(searchString: retainString)
+                                    loadingState = false
+                                }
+
                         } label: {
                             Text("검색")
                                 .foregroundColor(.black)
                                 .bold()
                         }
-
+                        
                     }
                     .frame(height: 15)
                     
                     // MARK: - 도서 검색 결과 View
-                    Text("검색 결과: \(bookSearchViewModel.searchBooksResult.numFound)개")
+                    Text("검색 결과: \(bookSearchViewModel.searchBooksResultPModel.numFound)개")
                         .font(.caption)
                         .foregroundColor(.gray)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -70,15 +72,15 @@ struct ContentView: View {
                         ]
                         
                         LazyVGrid(columns: columns, spacing: 5) {
-                            ForEach(bookSearchViewModel.searchBooksResult.books, id: \.self) { book in
+                            ForEach($bookSearchViewModel.searchBooksResultPModel.books, id: \.self) { $book in
                                 NavigationLink {
-                                    BookDetailView(book: book)
+                                    BookDetailView(book: $book)
                                 } label: {
                                     BookCellView(
-                                        bookTitle: book.title,
+                                        bookTitle: $book.title,
                                         presentAuthors: book.presentAuthors,
                                         presentRatingAverage: book.presentRatingAverage,
-                                        coverID: book.coverI
+                                        coverID: $book.coverI
                                     )
                                 }
                                 .accentColor(.black)
@@ -91,7 +93,7 @@ struct ContentView: View {
                                     Color.clear
                                         .onAppear {
                                             Task {
-                                                try await bookSearchViewModel.fetchBooksData(searchString: retainString)
+                                                await bookSearchViewModel.fetchBooksData(searchString: retainString)
                                             }
                                         }
                                 case .isLoading:
@@ -121,18 +123,20 @@ struct ContentView: View {
                 if loadingState {
                     ProgressView()
                 }
-
+                
             }
             .onTapGesture {
                 hideKeyboard()
             }
-        } 
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(BookSearchViewModel(searchBooksResult: SearchBooksResult(numFound: 0, books: [])))
+            .environmentObject(BookSearchViewModel(
+                searchBooksResultPModel: SearchBooksResultPModel(numFound: 0, books: [])
+            ))
     }
 }
