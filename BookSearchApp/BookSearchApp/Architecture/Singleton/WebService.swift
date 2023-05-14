@@ -33,6 +33,7 @@ final class WebService {
     
     // MARK: - Cover 이미지 fetch 함수
     static func fetchCoverImage(coverCode: Int?, size: String) async throws -> UIImage? {
+        let start = CFAbsoluteTimeGetCurrent()
         guard let coverCode = coverCode else { return nil }
         
         let requestURL: String = "\(coversAPIURL)\(coverCode)-\(size).jpg"
@@ -44,7 +45,8 @@ final class WebService {
         
         if let cachedImage = CacheManager.imageLoadCache(urlString: requestURL) { // 기기 메모리 혹은 디스크로부터 이미지 호출
             print("이미지 캐시 반환")
-            
+            let diff = CFAbsoluteTimeGetCurrent() - start
+            print("캐시 로드 시간: \(diff)")
             return cachedImage
         } else { // 기기에 캐시 파일 없으면 서버로부터 load
             let urlRequest = URLRequest(url: url)
@@ -57,7 +59,8 @@ final class WebService {
             guard let image = UIImage(data: data) else {
                 return nil
             }
-            
+            let diff = CFAbsoluteTimeGetCurrent() - start
+            print("서버 로드 시간: \(diff)")
             // 서버로 로드된 파일을 기기 메모리, disk 영역에 저장
             CacheManager.imageSetDisk(image: image, urlString: requestURL)
             CacheManager.imageSetMemory(image: image, urlString: requestURL)

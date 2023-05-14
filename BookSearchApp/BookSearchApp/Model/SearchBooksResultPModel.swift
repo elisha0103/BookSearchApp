@@ -14,9 +14,7 @@ struct SearchBooksResultPModel {
     static func converTo(_ searchBooksResult: SearchBooksResult) -> SearchBooksResultPModel {
         return SearchBooksResultPModel(
             numFound: searchBooksResult.numFound,
-            books: searchBooksResult.books.map({ book in
-                return BookPModel.convert(book)
-            })
+            books: searchBooksResult.books.map {BookPModel.convert($0)}
         )
     }
 }
