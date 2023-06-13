@@ -48,6 +48,13 @@ BookSearchAppUITests
 - 이미지를 다시 호출할 때, 메모리로부터 데이터를 요청 -> (실패) -> 디스크로부터 메모리 요청 -> (실패) -> API를 통해 데이터 요청
 - 검색 View에서 DetailView로 View가 이동할 때, DetailView에 보여지는 이미지도 이미지 캐싱을 통해 로드
 
+### Cache 구현 결과 (이미지 응답 5000 ~ 10000배 빠른 성능향상)
+
+|<img alt="이미지로드(네트워크)" src="https://github.com/elisha0103/BookSearchApp/assets/41459466/9dc9e3b5-427f-4fb2-aef2-0b07aea0a9ab" height="400"/></img>|<img  alt="이미지로드(캐시)" src="https://github.com/elisha0103/BookSearchApp/assets/41459466/937d0778-8b91-4015-92fb-bfe9cf4ced82" height="400"/></img>|
+|:-:|:-:|
+|`Network Image Load`|`NSCache Image Load`|
+|`수행시간: 약 1초`|`수행시간: 약 0.0001초 ~ 0.0002초`|
+
 
 ## 구현 화면
 
