@@ -4,17 +4,19 @@
 <div align="center">
 <img src = "https://user-images.githubusercontent.com/41459466/231796941-b32657ee-33b9-492d-acf9-43a611364c00.jpg">
 </div>
+<br/>
 
 ### 프로젝트 목표
 > - [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
 > - [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers)를 사용해 책 Cover 이미지 나타내기
 > - Pagination 사용하여 무한 스크롤 사용해보기
 > - Covers API로부터 받아온 이미지를 기기 메모리 / 디스크 캐시하여 자원 절약하기
+<br/>
 
 ### 개발 환경
 - Deployment Target: iOS 14.1
 - Architecture: MVVM, Singleton
-
+<br/>
 
 ## Foldering
 ```
@@ -35,6 +37,7 @@ BookSearchAppTests
 BookSearchSlowTests
 BookSearchAppUITests
 ```
+<br/>
 
 ## Feature-1. 검색화면 구현
 ### 주요 기능
@@ -42,6 +45,7 @@ BookSearchAppUITests
 - URLSession을 통해 네트워크 통신 구현 (테스트 코드를 통해 실행)
 - Pagination을 통해 스크롤을 화면 최하단으로 내리면 다음 데이터를 받아옴(추가 데이터가 없으면 반환 안함)
 - URLSession을 통해 네트워크 통신이 되는동안 로딩 View를 구성함
+<br/>
 
 ## Feature-2. Cover Image 불러오기 구현
 ### 주요 기능
@@ -49,6 +53,7 @@ BookSearchAppUITests
 - 최초 API를 통해 받아온 이미지 데이터를 메모리 / 디스크에 데이터 저장
 - 이미지를 다시 호출할 때, 메모리로부터 데이터를 요청 -> (실패) -> 디스크로부터 메모리 요청 -> (실패) -> API를 통해 데이터 요청
 - 검색 View에서 DetailView로 View가 이동할 때, DetailView에 보여지는 이미지도 이미지 캐싱을 통해 로드
+<br/>
 
 ### Cache 구현 결과 (이미지 응답 5000 ~ 10000배 빠른 성능향상)
 <div align="center">
@@ -58,7 +63,7 @@ BookSearchAppUITests
 |`Network Image Load`|`NSCache Image Load`|
 |`수행시간: 약 1초`|`수행시간: 약 0.0001초 ~ 0.0002초`|
 </div>
-
+<br/>
 
 ## 구현 화면
 <div align="center">
@@ -67,6 +72,7 @@ BookSearchAppUITests
 |:-:|:-:|
 |`검색, 상세 화면`|`Pagination 구현 화면`|
 </div>
+<br/>
 
 ## Troubleshooting
 ### **View 관련**
@@ -74,9 +80,11 @@ BookSearchAppUITests
 <img src="https://user-images.githubusercontent.com/41459466/231787564-068a7e76-2f8f-4e3d-a1c4-c62db49e089d.png" width="200" height="400"/>
 </div>
 
-- 문제: LazyVGrid 각 아이템 내 VStack(alignment: .leading) 정렬이 적용되지 않음
+- 문제: LazyVGrid 각 아이템 내 VStack(alignment: .leading) 정렬이 적용되지 않음 (일부 아이템 책 제목, 책 cover Image 정렬이 일치하지 않음)
+<br/>
 
 - 원인: LazyVGrid에 각 아이템(셀)별로 부여되는 컨테이너 영역의 정렬이 필요
+<br/>
 
  <div align="center">
 <img src="https://user-images.githubusercontent.com/41459466/231787651-8878b4c1-9d58-4a0d-9eb9-2a639e36f276.png" width="200" height="400"/>
@@ -86,14 +94,14 @@ BookSearchAppUITests
     ```
     .frame(maxWidth: .infinity, alignment: .leading)
     ```
-    
+<br/>    
     
 - 문제: ContentView에서 NavigationLink로 DetailView로 이동한 경우, DetailView에서 가지고 있는 프로퍼티들이 State 관리가 되지 않음
 
 - 원인: DetailView의 프로퍼티들이 State 변수로 선언되지 않음
 
 - 해결: DetailView의 프로퍼티들을 바인딩 프로퍼티 래퍼를 사용하여 선언하고, NavigationLink로 DetailView로 연결시켜줄 때, ViewModel의 상태 프로퍼티들을 DetailView의 프로퍼티들과 바인딩해줌
-
+<br/>
 
 ### **Cache 관련**
 - 배경: 이미지 캐시에 대한 Singleton 객체를 만들게 되면 여러 스레드에서 한 개의 객체에 NSCache 작업을 수행하게 되어 크래시가 발생할 것을 우려하여 각 이미지 View Struct 안에 MVVM형식(데이터 바인딩)을 취하는 방식으로 이미지 캐시 구현 시도
@@ -104,6 +112,7 @@ BookSearchAppUITests
 
 - 해결: CacheManager 클래스를 싱글턴 아키텍처 적용하여 한 객체에서 NSCache 관리되도록 구현
 
+<br/>
 
 ### **URLSession 관련**
 - 배경: API로부터 URLSession으로 이미지 로드가 미완료된 항목에 대해 중복된 요청이 발생될 수 있음
@@ -117,7 +126,7 @@ BookSearchAppUITests
 
 - 해결: CoverImageViewModel을 구현하여 CoverImageView에 대한 ViewModel 객체를 개별적으로 생성하고 ViewModel의 loadingState flag 변수를 사용하여 이미 API 함수가 호출된 경우 이미지 로드가 미완료 된 View에 한 해서는 중복된 요청 자체가 발생되지 않도록 함
 
-
+<br/>
 
 ## 참고사항
 <details>
@@ -177,12 +186,13 @@ BookSearchAppUITests
 #### Platforms
 
 <img src="https://img.shields.io/badge/iOS-5A29E4?style=flat&logo=iOS&logoColor=white"/>  
-    
+<br/>
+
 #### Language & Tools
 
 <img src="https://img.shields.io/badge/Xcode-147EFB?style=flat&logo=Xcode&logoColor=white"/> <img src="https://img.shields.io/badge/SwiftUI-2396F3?style=flat&logo=Swift&logoColor=white"/> <img src="https://img.shields.io/badge/Swift-F05138?style=flat&logo=swift&logoColor=white"/>
 
-
+<br/>
 
 ## 보완할 점
    - 사용자 검색 요청시 debounce 적용하여 연속 검색을 방지
