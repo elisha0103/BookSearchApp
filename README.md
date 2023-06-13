@@ -1,7 +1,9 @@
 # BookSearchApp
 
 ### 프로젝트 소개
+<div align="center">
 <img src = "https://user-images.githubusercontent.com/41459466/231796941-b32657ee-33b9-492d-acf9-43a611364c00.jpg">
+</div>
 
 ### 프로젝트 목표
 > - [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
@@ -49,31 +51,37 @@ BookSearchAppUITests
 - 검색 View에서 DetailView로 View가 이동할 때, DetailView에 보여지는 이미지도 이미지 캐싱을 통해 로드
 
 ### Cache 구현 결과 (이미지 응답 5000 ~ 10000배 빠른 성능향상)
-
+<div align="center">
+ 
 |<img alt="이미지로드(네트워크)" src="https://github.com/elisha0103/BookSearchApp/assets/41459466/9dc9e3b5-427f-4fb2-aef2-0b07aea0a9ab" height="400"/></img>|<img  alt="이미지로드(캐시)" src="https://github.com/elisha0103/BookSearchApp/assets/41459466/937d0778-8b91-4015-92fb-bfe9cf4ced82" height="400"/></img>|
 |:-:|:-:|
 |`Network Image Load`|`NSCache Image Load`|
 |`수행시간: 약 1초`|`수행시간: 약 0.0001초 ~ 0.0002초`|
+</div>
 
 
 ## 구현 화면
+<div align="center">
 
 |<img src="https://user-images.githubusercontent.com/41459466/231794900-aa9dbea2-42b8-4203-bdcb-075a98ea48a9.gif" width="200" height="400"/></img>|<img src="https://user-images.githubusercontent.com/41459466/231794632-95469519-27a7-4c7a-a3b3-96829101a0c8.gif" width="200" height="400"/></img>|
 |:-:|:-:|
 |`검색, 상세 화면`|`Pagination 구현 화면`|
-
+</div>
 
 ## Troubleshooting
 ### **View 관련**
-
+<div align="center">
 <img src="https://user-images.githubusercontent.com/41459466/231787564-068a7e76-2f8f-4e3d-a1c4-c62db49e089d.png" width="200" height="400"/>
+</div>
 
 - 문제: LazyVGrid 각 아이템 내 VStack(alignment: .leading) 정렬이 적용되지 않음
 
 - 원인: LazyVGrid에 각 아이템(셀)별로 부여되는 컨테이너 영역의 정렬이 필요
- 
-<img src="https://user-images.githubusercontent.com/41459466/231787651-8878b4c1-9d58-4a0d-9eb9-2a639e36f276.png" width="200" height="400"/>
 
+ <div align="center">
+<img src="https://user-images.githubusercontent.com/41459466/231787651-8878b4c1-9d58-4a0d-9eb9-2a639e36f276.png" width="200" height="400"/>
+ </div>
+ 
 - 해결: VStack의 ViewBuilder 정렬 값뿐만 아니라 컨테이너 .frame에도 정렬 수정자 적용 
     ```
     .frame(maxWidth: .infinity, alignment: .leading)
