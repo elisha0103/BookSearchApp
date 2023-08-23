@@ -22,9 +22,9 @@ final class BookSearchAppTests: XCTestCase {
         
     func testloadImageFromCache() throws {
 //        var loadImage: UIImage?
-        var image = UIImage(systemName: "book.closed")
+        let image = UIImage(systemName: "book.closed")
         let memoryCache = NSCache<NSString, UIImage>()
-        var fileManager = FileManager.default
+        let fileManager = FileManager.default
         let imageURL = URL(string: "book.closed")!
         
         guard let cachesDir = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
@@ -38,13 +38,13 @@ final class BookSearchAppTests: XCTestCase {
         
         
         CacheManager.imageSetDisk(image: image!, urlString: "book.closed")
-        var diskLoadImage: UIImage? = CacheManager.imageLoadCache(urlString: "book.closed")
+        let diskLoadImage: UIImage? = CacheManager.imageLoadCache(urlString: "book.closed")
         XCTAssertTrue(diskLoadImage != nil, "디스크 이미지 호출에 실패했습니다.")
         
         try fileManager.removeItem(atPath: filePath.path)
         
         CacheManager.imageSetMemory(image: image!, urlString: "book.closed")
-        var memoryLoadImage: UIImage? = CacheManager.imageLoadCache(urlString: "book.closed")
+        let memoryLoadImage: UIImage? = CacheManager.imageLoadCache(urlString: "book.closed")
         XCTAssertTrue(memoryLoadImage != nil, "메모리 이미지 호출에 실패했습니다.")
         
         memoryCache.removeObject(forKey: filePath.lastPathComponent as NSString)

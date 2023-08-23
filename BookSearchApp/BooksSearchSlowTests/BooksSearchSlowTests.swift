@@ -86,7 +86,7 @@ final class BooksSearchSlowTests: XCTestCase {
         let searchURL = URL(string: requestURLString)!
 
         sut?.dataTask(with: searchURL, completionHandler: { data, response, error in
-            if let data = data {
+            if let _ = data {
                 XCTFail()
             } else {
                 print("****Test****\nError: \(String(describing: error?.localizedDescription))\n********")
@@ -144,7 +144,7 @@ final class BooksSearchSlowTests: XCTestCase {
         }
         
         sut?.dataTask(with: url, completionHandler: { data, response, error in
-            if let data = data {
+            if let _ = data {
                 XCTFail()
             } else {
                 print("request 실패, 테스트 성공: \(String(describing: error?.localizedDescription))")
