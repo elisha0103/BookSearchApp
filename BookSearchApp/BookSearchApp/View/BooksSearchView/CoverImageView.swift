@@ -25,11 +25,11 @@ struct CoverImageView: View {
                     .frame(width: 100, height: 180)
                     .shadow(radius: 6)
                     .onAppear {
-                        Task {
-                            if !coverImageViewModel.loadingState {
-                                coverImageViewModel.loadingState = true
-                                if let cacheImage = try await WebService.fetchCoverImage(coverCode: coverImageViewModel.coverCode, size: "M") {
-                                    coverImageViewModel.uIImage = cacheImage
+                        if !coverImageViewModel.loadingState {
+                            coverImageViewModel.loadingState = true
+                            WebService.fetchCoverImage(coverCode: coverImageViewModel.coverCode, size: "M") { image in
+                                if let image = image {
+                                    coverImageViewModel.uIImage = image
                                 } else {
                                     guard let noImage = UIImage(named: "NoImage.png") else {
                                         coverImageViewModel.uIImage = UIImage(systemName: "book.closed")
@@ -40,6 +40,7 @@ struct CoverImageView: View {
                                 }
                                 coverImageViewModel.loadingState = false
                             }
+                            
                         }
                     }
             }

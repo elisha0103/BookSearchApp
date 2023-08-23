@@ -25,11 +25,9 @@ struct ContentView: View {
                             bookSearchViewModel.resetViewModelData()
                             
                             if loadingState == false {
-                                Task {
-                                    loadingState = true
-                                    await bookSearchViewModel.fetchBooksData(searchString: retainString)
-                                    loadingState = false
-                                }
+                                loadingState = true
+                                bookSearchViewModel.fetchBooksData(searchString: retainString,
+                                                                   completion: { loadingState = false })
                             }
                             
                         })
@@ -43,13 +41,9 @@ struct ContentView: View {
                         Button {
                             self.retainString = searchString
                             bookSearchViewModel.resetViewModelData()
-                            
-                                Task {
-                                    loadingState = true
-                                    await bookSearchViewModel.fetchBooksData(searchString: retainString)
-                                    loadingState = false
-                                }
-
+                            loadingState = true
+                            bookSearchViewModel.fetchBooksData(searchString: retainString,
+                                                               completion: { loadingState = false })
                         } label: {
                             Text("검색")
                                 .foregroundColor(.black)
@@ -92,9 +86,8 @@ struct ContentView: View {
                                 case .done:
                                     Color.clear
                                         .onAppear {
-                                            Task {
-                                                await bookSearchViewModel.fetchBooksData(searchString: retainString)
-                                            }
+                                            bookSearchViewModel.fetchBooksData(searchString: retainString,
+                                                                               completion: { })
                                         }
                                 case .isLoading:
                                     ProgressView()

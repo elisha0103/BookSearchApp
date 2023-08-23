@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		661439B029E81D7100ED6488 /* SearchBooksResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661439AF29E81D7100ED6488 /* SearchBooksResult.swift */; };
+		661AA9912A95EF4300169760 /* URLSessionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661AA9902A95EF4300169760 /* URLSessionable.swift */; };
 		6636887929E8109F00E28A75 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6636887829E8109F00E28A75 /* ArrayExtension.swift */; };
 		665B8A3F29EFB0BD00EF17F1 /* BookPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B8A3E29EFB0BD00EF17F1 /* BookPModel.swift */; };
 		665B8A4129EFB7C700EF17F1 /* SearchBooksResultPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665B8A4029EFB7C700EF17F1 /* SearchBooksResultPModel.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		661439AF29E81D7100ED6488 /* SearchBooksResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksResult.swift; sourceTree = "<group>"; };
+		661AA9902A95EF4300169760 /* URLSessionable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionable.swift; sourceTree = "<group>"; };
 		6636887829E8109F00E28A75 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		665B8A3E29EFB0BD00EF17F1 /* BookPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookPModel.swift; sourceTree = "<group>"; };
 		665B8A4029EFB7C700EF17F1 /* SearchBooksResultPModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksResultPModel.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 			children = (
 				669DE1CF29E54CC1007C8819 /* View+.swift */,
 				6636887829E8109F00E28A75 /* ArrayExtension.swift */,
+				661AA9902A95EF4300169760 /* URLSessionable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				665B8A3F29EFB0BD00EF17F1 /* BookPModel.swift in Sources */,
 				665B8A4329EFEEF600EF17F1 /* CoverImageViewModel.swift in Sources */,
 				669DE1D029E54CC1007C8819 /* View+.swift in Sources */,
+				661AA9912A95EF4300169760 /* URLSessionable.swift in Sources */,
 				66C3FBC529E595AF0059BE1B /* BookDetailView.swift in Sources */,
 				6636887929E8109F00E28A75 /* ArrayExtension.swift in Sources */,
 				669DE1B229E4EBF4007C8819 /* BookSearchAppApp.swift in Sources */,

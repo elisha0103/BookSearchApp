@@ -39,7 +39,7 @@ final class BookSearchViewModel: ObservableObject {
         self.page = 1
     }
     
-    func fetchBooksData(searchString: String) async {
+    func fetchBooksData(searchString: String, completion: @escaping () -> Void) {
         
         let searchStringWithOutSpace = searchString
             .trimmingCharacters(in: [" "])
@@ -50,35 +50,44 @@ final class BookSearchViewModel: ObservableObject {
         else { return }
         // 데이터 fetch 중에 연속적인 fetch, 데이터의 끝, 에러 상황에서 호출 방지
         
-        do {
             print("viewmodel start fetch")
-            DispatchQueue.main.sync {
+            DispatchQueue.main.async {
                 self.loadingBooksDataState = .isLoading
             }
-            let result = try await WebService.fetchBooksData(keyWords: searchStringWithOutSpace, page: self.page)
-            
-            print("현재 페이지: \(self.page)")
-            
-            print("finish fetch")
-                        
-            DispatchQueue.main.async { [weak self] in
-                self?.searchBooksResultPModel.numFound = result.numFound
-
-                self?.searchBooksResultPModel.books.append(contentsOf: result.books)
-                
-                self?.loadingBooksDataState =
-                (self?.searchBooksResultPModel.books.count == self?.searchBooksResultPModel.numFound) ?
-                    .loadedAll : .done
-                if self?.loadingBooksDataState == .loadedAll {
-                    print("데이터의 끝입니다. books: \(self?.searchBooksResultPModel.books.count ?? -1)")
+            WebService.fetchBooksData(keyWords: searchStringWithOutSpace, page: self.page) { result, error in
+                if let error = error {
+                    print("JSON fetch Error: \(error.localizedDescription)")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.loadingBooksDataState = .error("Could not load: \(error.localizedDescription)")
+                    }
                 }
-                self?.page += 1
+                
+                guard let result = result else {
+                    print("Books Data Error: JSON Translate error")
+                    return
+                }
+            
+                print("현재 페이지: \(self.page)")
+                
+                print("finish fetch")
+                
+                DispatchQueue.main.async { [weak self] in
+                    self?.searchBooksResultPModel.numFound = result.numFound
+
+                    self?.searchBooksResultPModel.books.append(contentsOf: result.books)
+                    
+                    self?.loadingBooksDataState =
+                    (self?.searchBooksResultPModel.books.count == self?.searchBooksResultPModel.numFound) ?
+                        .loadedAll : .done
+                    if self?.loadingBooksDataState == .loadedAll {
+                        print("데이터의 끝입니다. books: \(self?.searchBooksResultPModel.books.count ?? -1)")
+                    }
+                    self?.page += 1
+                    
+                    completion()
+                }
+
             }
-        } catch let error as NSError {
-            print("JSON fetch Error: \(error.localizedDescription)")
-            DispatchQueue.main.async { [weak self] in
-                self?.loadingBooksDataState = .error("Could not load: \(error.localizedDescription)")
-            }
-        }
+            
     }
 }
