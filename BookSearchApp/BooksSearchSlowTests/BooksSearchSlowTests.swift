@@ -10,12 +10,12 @@ import XCTest
 
 final class BooksSearchSlowTests: XCTestCase {
     // MARK: - Properties
-    var sut: URLSession!
+    var sut: URLSessionable?
     
     // MARK: - Methods
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = URLSession(configuration: .default)
+        sut = MockURLSession(makeRequestFail: false)
     }
     
     override func tearDownWithError() throws {
@@ -24,7 +24,12 @@ final class BooksSearchSlowTests: XCTestCase {
     }
     
     
-    func testFetchBooksDataWithSearchString() async throws {
+    func testFetchSearchBooksResultWhenSuccess() {
+        sut = MockURLSession(makeRequestFail: false)
+
+        // async테스트를 위해서 XCTestExpectation 사용
+        let expectation = XCTestExpectation()
+
         let searchURLString = "https://openlibrary.org/search.json?q="
         let guess = "thr lord of rings"
         
@@ -38,49 +43,117 @@ final class BooksSearchSlowTests: XCTestCase {
         
         let searchURL = URL(string: requestURLString)!
         
-        let promise = expectation(description: "데이터가 성공적으로 호출됐습니다.")
-        
-        do {
-            let (data, urlResponse) = try await URLSession.shared.data(from: searchURL)
-            if !data.isEmpty {
-                promise.fulfill()
-            } else {
-                print("데이터 없음")
-            }
-            print("urlRespnse: \(urlResponse)")
-            
-        } catch let error as NSError {
-            XCTFail("Error: \(error.localizedDescription)")
+        guard let sampleData: Data = NetworkMock.load() else {
+            print(" sampleData가 없습니다.")
+            return
         }
         
-        await fulfillment(of: [promise], timeout: 5)
+        let responseMock = try? JSONDecoder().decode(SearchBooksResult.self, from: sampleData)
+        
+        sut?.dataTask(with: searchURL, completionHandler: { data, response, error in
+            if let data = data {
+                print("****Test****\n테스트 성공\n********")
+                let result = try? JSONDecoder().decode(SearchBooksResult.self, from: data)
+                let searchBooksResult = SearchBooksResultPModel.converTo(result!)
+                XCTAssertEqual(responseMock?.books.first?.title, searchBooksResult.books.first?.title)
+            } else {
+                XCTFail(error?.localizedDescription ?? "")
+            }
+            print("urlRespnse: \(response.debugDescription)")
+            expectation.fulfill()
+        })
+        .resume()
+        
+        wait(for: [expectation], timeout: 2.0)
     }
     
-    func testFetchCoverImageWithCoverI() async throws {
+    func testFetchSearchBooksResultWhenFail() {
+        sut = MockURLSession(makeRequestFail: true)
+        
+        let expectation = XCTestExpectation()
+        
+        let searchURLString = "https://openlibrary.org/search.json?q="
+        let guess = "thr lord of rings"
+        
+        let searchStringWithOutSpace = guess
+            .trimmingCharacters(in: [" "]) // 문자열 양 끝단 공백 제거
+            .replacingOccurrences(of: " ", with: "+") // 문자열 사이 공백 "+"로 치환
+        
+        guard !searchStringWithOutSpace.isEmpty else { return }
+        
+        let requestURLString = "\(searchURLString)\(searchStringWithOutSpace)&page=1"
+        
+        let searchURL = URL(string: requestURLString)!
+
+        sut?.dataTask(with: searchURL, completionHandler: { data, response, error in
+            if let data = data {
+                XCTFail()
+            } else {
+                print("****Test****\nError: \(String(describing: error?.localizedDescription))\n********")
+            }
+            expectation.fulfill()
+        })
+        .resume()
+        
+        wait(for: [expectation], timeout: 2.0)
+    }
+    
+    func testFetchCoverImageWhenSuccess() {
+        sut = MockURLSession(makeRequestFail: false)
+        let expectation = XCTestExpectation()
+
         let coversURLString = "https://covers.openlibrary.org/b/id/"
         let coverCode: Int = 9255566
         let size: String = "M"
-        
+
         let requestURL: String = "\(coversURLString)\(coverCode)-\(size).jpg" // API Request URL String
-        let promise = expectation(description: "이미지가 성공적으로 호출됐습니다.")
         
         guard let url = URL(string: requestURL) else {
             print("URL String Error")
             return
         }
         
-        let (data, urlResponse) = try await URLSession.shared.data(from: url)
-        if !data.isEmpty {
-            print("fetchover")
-            promise.fulfill()
-        } else {
-            print("이미지 없음")
+        sut?.dataTask(with: url, completionHandler: { data, response, error in
+            if let data = data {
+                print("request 성공: \(data.description)")
+            } else {
+                XCTFail(error?.localizedDescription ?? "")
+            }
+            print("urlRespnse: \(response.debugDescription)")
+            expectation.fulfill()
+        })
+        .resume()
+
+        wait(for: [expectation], timeout: 2.0)
+        
+    }
+    
+    func testFetchCoverImageWhenFail() {
+        sut = MockURLSession(makeRequestFail: true)
+        let expectation = XCTestExpectation()
+        
+        let coversURLString = "https://covers.openlibrary.org/b/id/"
+        let coverCode: Int = 9255566
+        let size: String = "M"
+
+        let requestURL: String = "\(coversURLString)\(coverCode)-\(size).jpg" // API Request URL String
+        
+        guard let url = URL(string: requestURL) else {
+            print("URL String Error")
+            return
         }
         
-        print("urlRespnse: \(urlResponse.debugDescription)")
-
-        await fulfillment(of: [promise], timeout: 5)
+        sut?.dataTask(with: url, completionHandler: { data, response, error in
+            if let data = data {
+                XCTFail()
+            } else {
+                print("request 실패, 테스트 성공: \(String(describing: error?.localizedDescription))")
+            }
+            expectation.fulfill()
+        })
+        .resume()
         
+        wait(for: [expectation], timeout: 2.0)
     }
     
 }
