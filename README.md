@@ -198,5 +198,7 @@ BookSearchAppUITests
    - 사용자 검색 요청시 debounce 적용하여 연속 검색을 방지
    - UI 테스트 코드 작성 (자동화)
    - 네트워크 추상화 계층 일치
-   - 중복된 이미지 로드 요청 방지
-   - 검색 하위 별로 Sub ViewModel로 상태 객체 관리
+   - ~~중복된 이미지 로드 방지~~
+   - ~~검색 하위 별로 Sub ViewModel로 상태 객체 관리~~
+   - ~~네트워크 테스트코드 Mock 데이터 추가, URLSession Testable로 객체 수정~~
+   - 이미지 캐시 로직에 ETag 확인 과정 추가
