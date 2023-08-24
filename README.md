@@ -134,7 +134,7 @@ BookSearchAppUITests
 - 원인: 모든 파일에 Etag 검사를 진행하기 때문에 캐시 데이터를 가져오더라도 속도의 차이를 체감하기 힘듦
 
   <div align="center">
-  <img src="https://github.com/elisha0103/BookSearchApp/assets/41459466/6bfe1fb4-3f1f-4080-ab36-44ba1957375d" width="400" height="400"/></img>
+  <img src="https://github.com/elisha0103/BookSearchApp/assets/41459466/6bfe1fb4-3f1f-4080-ab36-44ba1957375d" width="400" height="300"/></img>
   </div>
   
   <br/>
