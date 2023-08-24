@@ -41,47 +41,76 @@ final class WebService {
     // MARK: - Cover 이미지 fetch 함수
     static func fetchCoverImage(coverCode: Int?, size: String,
                                 completion: @escaping (UIImage?) -> Void) {
-        let start = CFAbsoluteTimeGetCurrent()
-        guard let coverCode = coverCode else { return }
+        guard let coverCode = coverCode else {
+            print("DEBUG: cover code no exist")
+            completion(nil)
+            return
+            
+        }
         
         let requestURL: String = "\(coversAPIURL)\(coverCode)-\(size).jpg"
         
-        guard let url = URL(string: requestURL) else {
+        guard URL(string: requestURL) != nil else {
             print("URL String Error")
             return
         }
         
-        if let cachedImage = CacheManager.imageLoadCache(urlString: requestURL) { // 기기 메모리 혹은 디스크로부터 이미지 호출
-            print("이미지 캐시 반환")
-            let diff = CFAbsoluteTimeGetCurrent() - start
-            print("캐시 로드 시간: \(diff)")
-            completion(cachedImage)
-        } else { // 기기에 캐시 파일 없으면 서버로부터 load
-            
-            session.dataTask(with: url) { data, _, error in
-                guard error == nil else {
-                    print("Error: Fetch Cover Image Error \(String(describing: error?.localizedDescription))")
-                    return
-                }
-                guard let data = data else { return }
-                
-                guard let image = UIImage(data: data) else {
-                    print("Error: UIImage's Data isn't exsist")
-                    return
-                }
-                
-                let diff = CFAbsoluteTimeGetCurrent() - start
-                print("서버 로드 시간: \(diff)")
-                // 서버로 로드된 파일을 기기 메모리, disk 영역에 저장
-                CacheManager.imageSetDisk(image: image, urlString: requestURL)
-                CacheManager.imageSetMemory(image: image, urlString: requestURL)
-                
-                print("api 서버 이미지 반환")
-                
-                completion(image)
+        CacheManager.imageLoadCache(urlString: requestURL) { image in
+            guard let cachedImage = image else {
+                completion(nil)
+                return
             }
-            .resume()
+            completion(cachedImage)
         }
-        
     }
+    
+    static func checkImageUpdate(imageUrl: String, completion: @escaping (Bool, UIImage?) -> Void) {
+        guard let url = URL(string: imageUrl) else { return }
+        let etag = UserDefaults.standard.string(forKey: url.path) ?? ""
+        
+        var request = URLRequest(url: url)
+        request.addValue(etag, forHTTPHeaderField: "If-None-Match")
+        request.cachePolicy = .reloadIgnoringCacheData
+        
+        session.dataTask(with: request) { data, response, error in
+            
+            if let error = error {
+                print("checkImageUpdate occure error: \(error.localizedDescription)")
+                return
+            }
+            guard let response = response as? HTTPURLResponse else {
+                print("DEBUG: checkImageUpdate 함수 error")
+                completion(false, nil) // 네트워크 오류로 ETag를 확인할 수 없어 캐시 이미지 사용
+                return
+            }
+            print("DEBUG: response statuscode: \(response.statusCode)")
+            switch response.statusCode {
+            case (200...299):
+                guard let data = data, let image = UIImage(data: data) else {
+                    print("checkImageUpdate occure error: Data dosen't exist")
+                    return
+                }
+                
+                guard let etag = response.allHeaderFields["Etag"] as? String else {
+                    completion(true, image)
+                    return
+                    
+                }
+                
+                // 서버로 로드된 파일을 기기 메모리, disk 영역에 저장
+                CacheManager.imageSetMemory(image: image, urlString: imageUrl)
+                CacheManager.imageSetDisk(image: image, urlString: imageUrl, etag: etag)
+                
+                completion(true, image)
+            case 304:
+                completion(false, nil)
+            default:
+                print("DEBUG: checkImageUpdate etag 없음")
+                completion(false, nil)
+                
+            }
+        }
+        .resume()
+    }
+    
 }

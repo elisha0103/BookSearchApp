@@ -29,21 +29,21 @@ struct CoverImageView: View {
                             coverImageViewModel.loadingState = true
                             WebService.fetchCoverImage(coverCode: coverImageViewModel.coverCode, size: "M") { image in
                                 if let image = image {
-                                    coverImageViewModel.uIImage = image
-                                } else {
-                                    guard let noImage = UIImage(named: "NoImage.png") else {
-                                        coverImageViewModel.uIImage = UIImage(systemName: "book.closed")
-                                        return
-                                        
+                                    DispatchQueue.main.async {
+                                        coverImageViewModel.uIImage = image
+                                        coverImageViewModel.loadingState = false
                                     }
-                                    coverImageViewModel.uIImage = noImage
                                 }
-                                coverImageViewModel.loadingState = false
+                                DispatchQueue.main.async {
+                                    coverImageViewModel.loadingState = false
+                                }
+
                             }
                             
                         }
                     }
             }
+            
             if coverImageViewModel.loadingState {
                 ProgressView()
             }
