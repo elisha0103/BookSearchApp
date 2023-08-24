@@ -139,7 +139,7 @@ BookSearchAppUITests
   
   <br/>
   
-- 해결: 각 이미지별 Etag 검사 주기를 설정 → Etag 검사 일자를 Etag와 함께 Userdefaults에 저장
+- 해결: 각 이미지별 Etag 검사 주기를 설정 → Etag 검사 일자를 Etag와 함께 Userdefaults에 저장 (리팩토리 진행중 2023.08.24~)
    - 검사일자로부터 기준시간이 지나면 Etag 검사를 서버에 요청하여 데이터 동기화
    - 기준시간이 지나지 않으면 캐시 경로의 데이터 사용
 
