@@ -10,7 +10,7 @@
 > - [Open Library Search API](https://openlibrary.org/dev/docs/api/search)를 사용해 책을 검색하기
 > - [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers)를 사용해 책 Cover 이미지 나타내기
 > - Pagination 사용하여 무한 스크롤 사용해보기
-> - Covers API로부터 받아온 이미지를 기기 메모리 / 디스크 캐시하여 자원 절약하기
+> - Covers API로부터 받아온 이미지를 기기 메모리 / 디스크 캐시하여 네트워크 자원 절약하기, 빠른 응답속도 구현하기
 <br/>
 
 ### 개발 환경
@@ -113,6 +113,21 @@ BookSearchAppUITests
 - 해결: CacheManager 클래스를 싱글턴 아키텍처 적용하여 한 객체에서 NSCache 관리되도록 구현
 
 <br/>
+<br/>
+
+- 문제: 서버의 리소스 이름은 같지만 리소스 자체가 변경된 경우, 앱은 갱신되지 않은 캐시 데이터를 리소스로 활용
+  
+- 해결: 서버의 리소스가 변경된 경우, 앱의 캐시 데이터도 서버의 새로운 데이터로 갱신하기 위해 기존 이미지 캐시에 Etag 개념 적용
+  
+- 결과: Etag 이미지 캐시 사용결과 네트워크 트래픽 약 50% 감소 (150여건 검사 결과)
+  
+<div align="center">
+
+|<img src="https://github.com/elisha0103/BookSearchApp/assets/41459466/2484b3fb-8136-498d-bf7b-e0ce90a947b2"></img>|<img src="https://github.com/elisha0103/BookSearchApp/assets/41459466/fa447581-b33f-466e-87b4-10049f5fab37"></img>|
+|:-:|:-:|
+|`모든 이미지를 일괄 다운로드할 때의 네트워크 사용량`|`Etag 일치 유무에 따른 다운로드 네트워크 사용량`|
+</div>
+
 
 ### **URLSession 관련**
 - 배경: API로부터 URLSession으로 이미지 로드가 미완료된 항목에 대해 중복된 요청이 발생될 수 있음
