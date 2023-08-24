@@ -81,7 +81,6 @@ BookSearchAppUITests
 </div>
 
 - 문제: LazyVGrid 각 아이템 내 VStack(alignment: .leading) 정렬이 적용되지 않음 (일부 아이템 책 제목, 책 cover Image 정렬이 일치하지 않음)
-<br/>
 
 - 원인: LazyVGrid에 각 아이템(셀)별로 부여되는 컨테이너 영역의 정렬이 필요
 <br/>
@@ -94,6 +93,7 @@ BookSearchAppUITests
     ```
     .frame(maxWidth: .infinity, alignment: .leading)
     ```
+    
 <br/>    
     
 - 문제: ContentView에서 NavigationLink로 DetailView로 이동한 경우, DetailView에서 가지고 있는 프로퍼티들이 State 관리가 되지 않음
@@ -113,7 +113,6 @@ BookSearchAppUITests
 - 해결: CacheManager 클래스를 싱글턴 아키텍처 적용하여 한 객체에서 NSCache 관리되도록 구현
 
 <br/>
-<br/>
 
 - 문제: 서버의 리소스 이름은 같지만 리소스 자체가 변경된 경우, 앱은 갱신되지 않은 캐시 데이터를 리소스로 활용
   
@@ -128,6 +127,21 @@ BookSearchAppUITests
 |`모든 이미지를 일괄 다운로드할 때의 네트워크 사용량`|`Etag 일치 유무에 따른 다운로드 네트워크 사용량`|
 </div>
 
+<br/>
+
+- 문제: 이미지 캐시에 Etag 검사 로직을 적용해서 네트워크 사용량은 감소하지만, 캐시의 속도 향상이라는 최대 장점이 사라짐
+  
+- 원인: 모든 파일에 Etag 검사를 진행하기 때문에 캐시 데이터를 가져오더라도 속도의 차이를 체감하기 힘듦
+  
+  <img src="https://github.com/elisha0103/BookSearchApp/assets/41459466/6bfe1fb4-3f1f-4080-ab36-44ba1957375d"></img>
+  
+  <br/>
+  
+- 해결: 각 이미지별 Etag 검사 주기를 설정 → Etag 검사 일자를 Etag와 함께 Userdefaults에 저장
+   - 검사일자로부터 기준시간이 지나면 Etag 검사를 서버에 요청하여 데이터 동기화
+   - 기준시간이 지나지 않으면 캐시 경로의 데이터 사용
+
+<br/>
 
 ### **URLSession 관련**
 - 배경: API로부터 URLSession으로 이미지 로드가 미완료된 항목에 대해 중복된 요청이 발생될 수 있음
